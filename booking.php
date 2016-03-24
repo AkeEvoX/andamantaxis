@@ -229,24 +229,30 @@ div.ui-datepicker, .ui-datepicker td{
 
 		$num_route	= $_GET["num_route"];
 		$adults = 2;
+		
+		$vehicle_search = $_GET["vehicle_type"];
 			
 		if ($num_route != ""){
+			
+			
+			
 			$route_data = $_SESSION["s_route"][$num_route];
 			
-			$province1 		= $route_data[0];
-			$location1 		= $route_data[1];
-			$province2 		= $route_data[2];
-			$location2 		= $route_data[3];
-			$date1	   		= $route_data[4];
-			$hour1	   		= $route_data[5];
-			$min1	   		 = $route_data[6];
-			$date2 	   		= $route_data[7];
-			$hour2 			= $route_data[8];
-			$min2 			 = $route_data[9];
-			$adults 		   = $route_data[10];
-			$children		 = $route_data[11];
-			$infants		  = $route_data[12];
-			$transfer		 = $route_data[13];
+			$vehicle_search  = $route_data["vehicle_type"];
+			$province1 		= $route_data["province_src"];
+			$location1 		= $route_data["location_src"];
+			$province2 		= $route_data["province_dist"];
+			$location2 		= $route_data["location_dist"];
+			$date1	   		= $route_data["arrival_date"];
+			$hour1	   		= $route_data["arrival_hour"];
+			$min1	   		 = $route_data["arrival_minute"];
+			$date2 	   		= $route_data["departure_date"];
+			$hour2 			= $route_data["departure_hour"];
+			$min2 			 = $route_data["departure_minute"];
+			$adults 		   = $route_data["adults"];
+			$children		 = $route_data["children"];
+			$infants		  = $route_data["infants"];
+			$transfer		 = $route_data["transfer"];
 			//print_r($route_data);
 			if ($adults == "")
 				$adults = 2;
@@ -264,7 +270,7 @@ div.ui-datepicker, .ui-datepicker td{
     });
 	</script>
     <?php }  ?>
-    <form id="formSearch" name="form1" method="post" action="get-quote.php">
+    <form id="formSearch" name="form1" method="post" action="get-quote.php?num_route=<? echo $num_route;  ?>&vehicle_search=<? echo $vehicle_search; ?>">
       <table width="1156" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
           <td colspan="6"><h1>Book Your Transfer </h1></td>

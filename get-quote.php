@@ -165,8 +165,8 @@ function addCommas(nStr)
 			
 			$temp_booking = array("province_src"=>$_POST["province1"],
 													"location_src"=>$_POST["location1"],
-													"province_dist"=>$_POST["province1"],
-													"location_dist"=>$_POST["location1"],
+													"province_dist"=>$_POST["province2"],
+													"location_dist"=>$_POST["location2"],
 													"arrival_date"=>$_POST["date1"],
 													"arrival_hour"=>$_POST["hour1"],
 													"arrival_minute"=>$_POST["min1"],
@@ -176,9 +176,9 @@ function addCommas(nStr)
 													"adults"=>$_POST["adults"],
 													"children"=>$_POST["children"],
 													"infants"=>$_POST["infants"],
-													"transfer"=>$_POST["transfer"]
+													"transfer"=>$_POST["transfer"],
+													"vehicle_search"=>$_GET["vehicle_search"]
 													);
-			
 			/*
 			 array($province1,$location1,$province2,$location2,$date1,$hour1,		
 										$min1,$date2,$hour2,$min2,$adults,$children,$infants,$transfer);
@@ -277,10 +277,18 @@ function addCommas(nStr)
 				inner join travel_price ON vehicle_type.vtype_id = travel_price.vtype_id 
 				inner join travel_route ON travel_route.troute_id = travel_price.troute_id 
 				where vtype_status = 1 
-				  and tprice_bound = '$transfer'
+				and tprice_bound = '$transfer' 
 	and ((travel_route.tlocation_id_origin = '$location1' and travel_route.tlocation_id_destination = '$location2')
 	 or (travel_route.tlocation_id_origin = '$location2' and travel_route.tlocation_id_destination = '$location1'))
-				order by vehicle_type.vtype_id";
+				";
+				
+		
+		if(isset($temp_booking["vehicle_search"]) && $temp_booking["vehicle_search"] != "")
+		{
+			$sql .= " and vehicle_type.vtype_id = " .$temp_booking["vehicle_search"];
+		}
+				
+		$sql .= " order by vehicle_type.vtype_id ";
 		
 		//echo $sql."<br/>";
 				
@@ -288,9 +296,20 @@ function addCommas(nStr)
 		for ($i=1; $i<=$conn->numRow(); $i++){
 			$row = $conn->fetchArray();
 			
+			/* initial meta vehicle */
+			$car	=	ceil(($adults+$children+$infants)/$row["seat"]);
+		    $total1 = $row["tprice_amount"] * $car;
+		  	$total2 = $row["tprice_amount_agent"] * $car;
+			
+			$temp_booking["vehicle_type"] = $row["vtype_id"];
+			$temp_booking["price"] = $total1;
+			$temp_booking["price_agent"] = $total2;
+			
 	  ?>
-      <form name="form2" method="post" action="booking-success.php"  ><!--booking-transfer-->
+      <form name="form2" method="post" action="booking-success.php?num_route=<? echo $_GET["num_route"]; ?>"  >
 	  <input type='hidden' name='databooking' value='<? echo base64_encode(serialize($temp_booking)); ?>' />
+	  
+	  
       <input type="hidden" class="seat_unit"  data-direction="<?php echo $i ?>" value="<?php echo $row["seat"] ?>" />
       <input type="hidden" class="price_unit"  data-direction="<?php echo $i ?>" value="<?php echo $row["tprice_amount"]; ?>" />
       <input type="hidden" class="price_unit_agent"  data-direction="<?php echo $i ?>" value="<?php echo $row["tprice_amount_agent"]; ?>" />
@@ -305,18 +324,11 @@ function addCommas(nStr)
            <?php 
 		   //// cal จำนวนคันรถ////////
 		   
-		   $car	=	ceil(($adults+$children+$infants)/$row["seat"]);
-		   
-		   for ($c=$car; $c<=99; $c++){?>
+		   for ($c=$car; $c<=99; $c++){ ?>
             <option value="<?php echo $c ?>"><?php echo $c?></option>
             <?php } ?>
           </select></td>
-          <?php
-            //cal tprice_amount //////
-		  	$total1 = $row["tprice_amount"] * $car;
-		  	$total2 = $row["tprice_amount_agent"] * $car;
 		  
-		  ?>
           <td width="32" align="center"><img src="images/icon_equ.png" width="32" height="54" /></td>
           <td width="41" align="center"><img src="images/suitcase.png" width="41" height="37" /></td>
           <td width="32" align="center"><img src="images/icon_plus.png" width="32" height="54" /></td>

@@ -153,17 +153,7 @@ function MM_swapImage() { //v3.0
 <form id="form1" name="form1" method="post" action="">
     <?php
 		
-		if ($_POST){	
-			$vtype_id		=	$_POST["vtype"];
-			$total1		  =	$_POST["total1"];
-			$total2		  =	$_POST["total2"];
-			$unit			=	$_POST["unit"];
-			$num_route	   =	$_POST["num_route"];
-			
-			array_push($_SESSION["s_route"][$num_route],$vtype_id,$total1,$unit,$total2);	
-			
-		}
-	/*
+		/*
 		echo "<pre>";
 		print_r($_SESSION["s_route"]);
 		echo "</pre>";
@@ -177,7 +167,8 @@ function MM_swapImage() { //v3.0
 		
 		
 	foreach ($route_data as $index=>$val){
-			
+		
+			//echo "key is ".$index." val is ". $val["province_src"] . " <br /> ";
 	?>
       <table width="619" border="0" align="center" cellpadding="0" cellspacing="0" class="s11" >
         <tr>
@@ -199,38 +190,38 @@ function MM_swapImage() { //v3.0
         <tr>
           <td width="50" valign="top">&nbsp;</td>
           <td width="197" valign="top"><strong style="font-size:22px">1.Where </strong></td>
-          <td colspan="4" valign="top"><em>Origin :</em> <?php echo showprovince($val[0])?>  / <?php echo showlocation($val[1]) ?><br/>
-            <em>Destination :</em> <?php echo showprovince($val[2])?> / <?php echo showlocation($val[3]) ?><br />            
+          <td colspan="4" valign="top"><em>Origin :</em> <?php echo showprovince($val["province_src"])?>  / <?php echo showlocation($val["location_src"]) ?><br/>
+            <em>Destination :</em> <?php echo showprovince($val["province_dist"])?> / <?php echo showlocation($val["location_dist"]) ?><br />            
             <em>Amount :</em> 
 			<?php 
 			if ($_SESSION["s_mem_id"]!="")
 			{
-				  echo number_format($val[17] * $val[16] , 2);
+				  echo number_format($val["price_agent"] * $val["unit"] , 2);
 			}
 			else 
 			{
-				  echo number_format($val[15] * $val[16] , 2); 
+				  echo number_format($val["price"] * $val["unit"] , 2); 
 			}
 			?> 
-            <em>baht&nbsp;&nbsp;</em><em>By :</em> <?php echo showvehicle($val[14]) ?><br />            </td>
+            <em>baht&nbsp;&nbsp;</em><em>By :</em> <?php echo showvehicle($val["vehicle_type"]) ?><br />            </td>
           </tr>
         <tr>
           <td valign="top">&nbsp;</td>
           <td valign="top"><strong style="font-size:22px">2.When</strong></td>
-          <td colspan="4" valign="top"><em>Arrival date :</em> <?php echo changeDateMonthShow($val[4]) ?> <br />
-            <em>Arrival time :</em> <?php echo $val[5] ?>:<?php echo str_pad($val[6],2,"0",STR_PAD_LEFT); ?><br />
-           <?php if ($val[7]!=""){ ?>
-            <em>Departure date :</em> <?php echo changeDateMonthShow($val[7]) ?> <br />
-            <em>Departure time :</em> <?php echo $val[8] ?>:<?php echo str_pad($val[9],2,"0",STR_PAD_LEFT); ?>
+          <td colspan="4" valign="top"><em>Arrival date :</em> <?php echo changeDateMonthShow($val["arrival_date"]) ?> <br />
+            <em>Arrival time :</em> <?php echo $val["arrival_hour"] ?>:<?php echo str_pad($val["arrival_minute"],2,"0",STR_PAD_LEFT); ?><br />
+           <?php if ($val["departure_date"]!=""){ ?>
+            <em>Departure date :</em> <?php echo changeDateMonthShow($val["departure_date"]) ?> <br />
+            <em>Departure time :</em> <?php echo $val["departure_hour"] ?>:<?php echo str_pad($val["departure_minute"],2,"0",STR_PAD_LEFT); ?>
            <?php } ?>
             </td>
           </tr>
         <tr>
           <td valign="top">&nbsp;</td>
           <td valign="top"><strong style="font-size:22px">3.Who</strong></td>
-          <td colspan="4" valign="top"><span class="b1"><em>Adults (12+) :</em></span>&nbsp;<?php echo $val[10] ?><br />
-            <span class="b1"><em>Children (3-11) :</em></span>&nbsp;<?php echo $val[11] ?><br />
-            <span class="b1"><em>Infants (0-2) :</em></span>&nbsp;<?php echo $val[12] ?></td>
+          <td colspan="4" valign="top"><span class="b1"><em>Adults (12+) :</em></span>&nbsp;<?php echo $val["adults"] ?><br />
+            <span class="b1"><em>Children (3-11) :</em></span>&nbsp;<?php echo $val["children"] ?><br />
+            <span class="b1"><em>Infants (0-2) :</em></span>&nbsp;<?php echo $val["infants"] ?></td>
           </tr>
         <tr>
           <td valign="top">&nbsp;</td>
