@@ -1,0 +1,43 @@
+.t1 {
+	margin-top: 60px;
+	margin-left: 60px;
+	clip: rect(10px,10px,10px,10px);
+	border: thin solid #CCC;
+}
+.t2 {
+	background-color: #fdfdfd;
+}
+.t3 {
+	background-color: #f9f9f9;
+}
+.t4 {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #2C79B1;
+	margin-left: 20px;
+}
+.t5 {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	color: #2C79B1;
+	margin-left: 20px;
+}
+.t6 {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 14px;
+	margin-left: 20px;
+}
+.t7 {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #FC0;
+}
+.t8 {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #333;
+}

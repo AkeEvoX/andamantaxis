@@ -1,0 +1,30 @@
+.t-s2 {
+	border: thin solid #CCCCCC;
+	margin-top: 30px;
+	background-color: #D8EBFA;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 12px;
+	color: #333;
+}
+.t-s3 {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #0160A4;
+	margin-left: 91px;
+	margin-top: 75px;
+}
+.b1 {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 13px;
+	color: #333;
+	margin-left: 58px;
+	font-weight: normal;
+}
+.b2 {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	color: #2C79B1;
+	margin-left: 58px;
+}

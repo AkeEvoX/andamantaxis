@@ -1,0 +1,331 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.php",
+			"settings":
+			{
+				"buffer_size": 23646,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "booking.php",
+			"settings":
+			{
+				"buffer_size": 19592,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<br />\n<b>Warning</b>:  date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in\n <b>/Users/iake.air/Sites/andamantaxis/index.php</b> on line <b>302</b><br />23-03-2016",
+			"settings":
+			{
+				"buffer_size": 501,
+				"line_ending": "Unix",
+				"name": "<br />"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 360.0,
+		"selected_items":
+		[
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 544.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/iake.air/Sites/andamantaxis/include/connect.php",
+		"/Users/iake.air/Sites/andamantaxis/index.php",
+		"/Users/iake.air/Sites/andamantaxis/test.php",
+		"/Users/iake.air/Sites/andamantaxis/booking-transfer.php",
+		"/Users/iake.air/Sites/andamantaxis/_htaccess",
+		"/Users/iake.air/Sites/andaman/_htaccess",
+		"/Users/iake.air/Sites/andamantaxis/get-quote.php",
+		"/Users/iake.air/Sites/andamantaxis/cancel_paypal.php",
+		"/private/etc/apache2/httpd.conf",
+		"/Users/iake.air/Sites/andamantaxis/include/connect.inc.php",
+		"/Users/iake.air/Sites/andamantaxis/contact-us.php",
+		"/Users/iake.air/Sites/andamantaxis/include/function.inc.php",
+		"/Volumes/ftp.andamantaxis.com/domains/andamantaxis.com/public_html/confirm_paypal.php",
+		"/Volumes/ftp.andamantaxis.com/domains/andamantaxis.com/public_html/save_booking-detail.php",
+		"/Volumes/ftp.andamantaxis.com/domains/andamantaxis.com/public_html/include/paypal.php",
+		"/Volumes/ftp.andamantaxis.com/domains/andamantaxis.com/public_html/cancel_paypal.php",
+		"/Users/iake.air/Sites/paypal_test/cancel.php",
+		"/Users/iake.air/Sites/paypal_test/success.php",
+		"/Users/iake.air/Sites/paypal_test/order.php",
+		"/Volumes/ftp.andamantaxis.com/domains/andamantaxis.com/public_html/include/connect.php",
+		"/Volumes/ftp.andamantaxis.com/domains/andamantaxis.com/public_html/include/connect.inc.php",
+		"/Users/iake.air/Sites/prakongmitt/restaurant.php",
+		"/Users/iake.air/Sites/prakongmitt/js/restaurant_ctrl.js",
+		"/Users/iake.air/Sites/prakongmitt/pages/restaurant/controller/connect_restaurant.php",
+		"/Users/iake.air/Sites/prakongmitt/pos.php",
+		"/Users/iake.air/Sites/prakongmitt/controller/order_ctrl.php",
+		"/Users/iake.air/Sites/prakongmitt/controller/ordersave_ctrl.php",
+		"/Users/iake.air/Sites/prakongmitt/js/pos_ctrl.js",
+		"/Users/iake.air/Sites/prakongmitt/controller/restaurant_data.php",
+		"/Users/iake.air/Sites/prakongmitt/controller/connect_procedure.php",
+		"/Users/iake.air/Sites/prakongmitt/controller/connect.php",
+		"/Users/iake.air/Sites/prakongmitt/controller/loggin.php",
+		"/Users/iake.air/Sites/prakongmitt/controller/category_ctrl.php",
+		"/Users/iake.air/Sites/prakongmitt/controller/product_ctrl.php",
+		"/Users/iake.air/Sites/prakongmitt/css/prakongmitt.css",
+		"/Users/iake.air/Sites/prakongmitt/css/prakongmitt_mobile.css",
+		"/Users/iake.air/Sites/prakongmitt/js/product_ctrl.js",
+		"/Users/iake.air/Sites/prakongmitt/controller/pricelist_ctrl.php",
+		"/Users/iake.air/Sites/prakongmitt/controller/report_ctrl.php",
+		"/Users/iake.air/Sites/prakongmitt/dialogs/report.summery.html",
+		"/Users/iake.air/Sites/prakongmitt/js/product_manage.js",
+		"/Users/iake.air/Sites/prakongmitt/controller/product_manage.php",
+		"/Users/iake.air/Sites/cakeDemo/<?.php",
+		"/private/etc/apache2/users/iake.air.conf",
+		"/Users/iake.air/Sites/prakongmitt/js/productgroup_manage.js",
+		"/Users/iake.air/Sites/prakongmitt/controller/productgroup_manage.php",
+		"/Users/iake.air/Sites/prakongmitt/product.php",
+		"/Users/iake.air/Sites/prakongmitt/productgroup.php",
+		"/Users/iake.air/Sites/prakongmitt/controller/productgroup_ctrl.php",
+		"/Users/iake.air/Sites/prakongmitt/pricelist.php",
+		"/Users/iake.air/Sites/prakongmitt/js/pricelist_manage.js",
+		"/Users/iake.air/Sites/prakongmitt/js/signin.js",
+		"/Users/iake.air/Sites/prakongmitt/index.php",
+		"/Users/iake.air/Sites/prakongmitt/js/prakongmitt_ctrl.js",
+		"/Users/iake.air/Sites/prakongmitt/js/category_ctrl.js",
+		"/Users/iake.air/Sites/prakongmitt/login.php",
+		"/Users/iake.air/Sites/prakongmitt/js/jquery.min.js",
+		"/Users/iake.air/Sites/prakongmitt/verifylogin.php",
+		"/Users/iake.air/Sites/prakongmitt/.htaccess",
+		"/Users/iake.air/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/iake.air/Sites/prakongmitt/js/bootstrap.min.js",
+		"/Users/iake.air/Sites/webapp1/login.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"User",
+			"Your",
+			"Book",
+			"$path",
+			"Payments",
+			"Payments Detail",
+			"right",
+			"netcalculate",
+			"\";\n",
+			"5",
+			"\")\n",
+			"\";\n",
+			"=\"\">",
+			"                \n",
+			"?>",
+			"60px",
+			"source\n",
+			"get\n",
+			"source\n",
+			">\n"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.php",
+					"settings":
+					{
+						"buffer_size": 23646,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								73,
+								73
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 473.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "booking.php",
+					"settings":
+					{
+						"buffer_size": 19592,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								19592,
+								19569
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5596.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"settings":
+					{
+						"buffer_size": 501,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								89,
+								26
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<br />",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 270.0,
+	"status_bar_visible": true
+}
