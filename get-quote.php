@@ -176,16 +176,9 @@ function addCommas(nStr)
 													"adults"=>$_POST["adults"],
 													"children"=>$_POST["children"],
 													"infants"=>$_POST["infants"],
-													"transfer"=>$_POST["transfer"],
-													"vehicle_search"=>$_GET["vehicle_search"]
+													"transfer"=>$_POST["transfer"]
 													);
-			/*
-			 array($province1,$location1,$province2,$location2,$date1,$hour1,		
-										$min1,$date2,$hour2,$min2,$adults,$children,$infants,$transfer);
-			*/
-			
-			
-		
+	
 			//check province origin is null and then redirect to page index.php
 			if ($province1==""){
 				go('index.php');
@@ -198,73 +191,6 @@ function addCommas(nStr)
 				$min2	= "";
 			}
 
-		//// #edit booking from page booking .
-		//$num_route = $_REQUEST["num_route"];
-		
-		
-		
-//	///check province & local Origin///////	
-//			
-//		if ($province1==0)
-//		
-//		alertback("Please choose origin-province");
-//		
-//		if ($location1==0)
-//		
-//		alertback("Please choose origin-location");
-//	
-//	///check province & local Destination///////	
-//			
-//		if ($province2==0)
-//		
-//		alertback("Please choose destination-province");
-//		
-//		if ($location2==0)
-//		
-//		alertback("Please choose destination-location");
-
-////// update & add route//////////
-
-	//old code
-	//if (!isset($_GET["num_route"])){
-	
-	//#new booking
-	/*
-	if (!isset($_GET["num_route"])){
-		
-		
-		if($num_route==""){
-			
-			$num_route=count($_SESSION["s_route"]);
-			$num_route+=1;
-			
-			$_SESSION["s_route"][$num_route] = array($province1,$location1,$province2,$location2,$date1,$hour1,		
-										$min1,$date2,$hour2,$min2,$adults,$children,$infants,$transfer);
-										
-		}
-			
-	}
-	else //edit booking 
-	{
-		
-		$province1 = $_SESSION["s_route"][$num_route][0];
-		$location1 = $_SESSION["s_route"][$num_route][1];
-		$province2 = $_SESSION["s_route"][$num_route][2];
-		$location2 = $_SESSION["s_route"][$num_route][3];
-		$date1 	 = $_SESSION["s_route"][$num_route][4];
-		$hour1 	 = $_SESSION["s_route"][$num_route][5];
-		$min1 	  = $_SESSION["s_route"][$num_route][6];
-		$date2 	 = $_SESSION["s_route"][$num_route][7];
-		$hour2 	 = $_SESSION["s_route"][$num_route][8];
-		$min2 	  = $_SESSION["s_route"][$num_route][9];
-		$adults 	= $_SESSION["s_route"][$num_route][10];
-		$children  = $_SESSION["s_route"][$num_route][11];
-		$infants   = $_SESSION["s_route"][$num_route][12];
-		$transfer  = $_SESSION["s_route"][$num_route][13];		
-		
-	}
-	*/
-	
 ?>    
     
 <p class="t-s3">Select Your Vehicle Type </p>
@@ -283,9 +209,9 @@ function addCommas(nStr)
 				";
 				
 		
-		if(isset($temp_booking["vehicle_search"]) && $temp_booking["vehicle_search"] != "")
+		if(isset($_GET["vehicle_search"]) && $_GET["vehicle_search"] != "")
 		{
-			$sql .= " and vehicle_type.vtype_id = " .$temp_booking["vehicle_search"];
+			$sql .= " and vehicle_type.vtype_id = " .$_GET["vehicle_search"];
 		}
 				
 		$sql .= " order by vehicle_type.vtype_id ";
@@ -304,6 +230,8 @@ function addCommas(nStr)
 			$temp_booking["vehicle_type"] = $row["vtype_id"];
 			$temp_booking["price"] = $total1;
 			$temp_booking["price_agent"] = $total2;
+			//$temp_booking["vehicle_search"] = $row["vtype_id"];
+			
 			
 	  ?>
       <form name="form2" method="post" action="booking-success.php?num_route=<? echo $_GET["num_route"]; ?>"  >
@@ -345,7 +273,7 @@ function addCommas(nStr)
            
            </td>
           <td width="174" rowspan="2" align="center">
-            <input name="vtype" type="hidden" id="vtype" value="<?php echo $row["vtype_id"] ?>" />
+            <!-- <input name="vtype" type="hidden" id="vtype" value="<?php //echo $row["vtype_id"] ?>" />-->
             <input name="total1" type="hidden" id="total1" value="<?php echo $total1 ?>" />
             <input name="total2" type="hidden" id="total2" value="<?php echo $total2 ?>" />
             <input name="num_route" type="hidden" id="num_route" value="<?php echo $num_route ?>" />

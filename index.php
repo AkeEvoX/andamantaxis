@@ -247,7 +247,8 @@ div.ui-datepicker, .ui-datepicker td{
 			if ($goto=="")
 				$goto = "/index.php";
 
-			exit("<script>window.location='http://".$_SERVER['HTTP_HOST']."$goto?num_route=$num_route'</script>");	
+			exit("<script>window.location='http://".$_SERVER['HTTP_HOST']."$goto?num_route=$num_route'</script>");
+			
 		}
 	}
 ?>
@@ -409,7 +410,7 @@ div.ui-datepicker, .ui-datepicker td{
                         height:235px;
                         padding-top:1px;
                         margin-left:20px">
-            <form id="frmDiscount" name="form3" method="post" action="">
+            <form id="frmMember" name="form3" method="post" action="member-login.php">
               <table width="333" border="0" cellpadding="0" cellspacing="0" class="mid-right2">
                 <tr>
                   <td class="s1">Login For Agent</td>
@@ -428,7 +429,7 @@ div.ui-datepicker, .ui-datepicker td{
                   <td class="r-s3"><input type="password" name="password" id="password" /></td>
                 </tr>
                 <tr>
-                  <td><br /><a href="javascript:" class="r-s4" onmouseover="MM_swapImage('Image45','','images/b-signup-R.jpg',1)" onmouseout="MM_swapImgRestore()" onclick="document.getElementById('frmDiscount').submit()"><img src="images/b-signup.jpg" name="Image45" width="123" height="40" border="0" id="Image45" /></a>&nbsp;&nbsp;&nbsp;** <a href="member-forget.php">Forget Password</a></td>
+                  <td><br /><a href="javascript:" class="r-s4" onmouseover="MM_swapImage('Image45','','images/b-signup-R.jpg',1)" onmouseout="MM_swapImgRestore()" onclick="document.getElementById('frmMember').submit()"><img src="images/b-signup.jpg" name="Image45" width="123" height="40" border="0" id="Image45" /></a>&nbsp;&nbsp;&nbsp;** <a href="member-forget.php">Forget Password</a></td>
                 </tr>
                 <?php }else{ ?>
                 <tr>

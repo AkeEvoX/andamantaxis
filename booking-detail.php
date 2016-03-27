@@ -45,6 +45,7 @@ function MM_swapImage() { //v3.0
 <link href="css/div-input.css" rel="stylesheet" type="text/css" />
 <link href="css/dropdown.css" rel="stylesheet" type="text/css" />
 <link href="css/midright2.css" rel="stylesheet" type="text/css" />
+<link href='css/bootstrap/bootstrap.css' rel='stylesheet' type='text/css' />
 <!-- InstanceBeginEditable name="head" -->
 <style type="text/css">
 body {
@@ -94,6 +95,7 @@ body,td,th {
 <script type="text/javascript" src="jquery/jquery-ui/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(e) {
+	
     $("#use_detail").change(function(){
 		if ($(this).prop("checked")==true)
 			$("#billing_detail").show(500);
@@ -104,6 +106,7 @@ $(document).ready(function(e) {
 	$("#use_detail").change();
 	
 	$("#form2").submit(function(){
+		
 		var msg = "";
 		
 		if ($("#reserv_firstname").val() ==""){
@@ -226,35 +229,188 @@ $(document).ready(function(e) {
 
     
 <form action="save_booking-detail.php" method="post" enctype="multipart/form-data" name="form2" id="form2">
+<div class='container'>
+	<div class='row'>
+		<div class='col-md-8' >
+			<div class='panel panel-primary'>
+				<div class='panel-heading'>
+					Payment Detail
+				</div>
+				<div class='panel-body'>
+					Please Note: Payment is processed by DataCash, the TH's leading secure service. Your bank may ask for verification via 3-D secure. <hr />
+					Payment Type : 
+							<?
+							 	$sql2 = "select * from payment where payment_status = 1 order by payment_id ";
+							$conn2->query($sql2);
+							while ($row2 = $conn2->fetchArray()){
+								
+								$selectPayment="";
+								if($row2["payment_id"]==1)
+									$selectPayment = "checked";
+								
+								echo "<div class='radio' ><label>";
+								echo "<input type='radio' name='reserv_payment'  value='". $row2["payment_id"]."'  ".$selectPayment ." />  ";
+								echo $row2["payment_name"];
+								echo "</label></div>";
+							}
+							
+							?>
+				</div>
+				<div class='panel-heading'>
+					Customer Detail
+				</div>
+				<div class='panel-body'>
+					<div class='form-horizontal'>
+						<div class='form-group'>
+								<label for='reserv_firstname' class='col-sm-3 control-label' >First Name </label>
+								<div class='col-sm-5' >
+								<input type='text' class='form-control' id='reserv_firstname' name='reserv_firstname' placeholder='Firstname' />
+								</div>
+						</div>
+						<div class='form-group'>
+								<label for='reserv_lastname' class='col-sm-3 control-label' >Last Name </label>
+								<div class='col-sm-5' >
+								<input type='text' class='form-control' id='reserv_lastname' name='reserv_lastname' placeholder='Lastname' />
+								</div>
+						</div>
+						<div class='form-group'>
+								<label for='reserv_email' class='col-sm-3 control-label' >E-Mail Address</label>
+								<div class='col-sm-5' >
+								<input type='email' class='form-control' id='reserv_email' name='reserv_email' placeholder='E-Mail' />
+								</div>
+						</div>
+						<div class='form-group'>
+								<label for='reserv_mobile' class='col-sm-3 control-label' >Mobile</label>
+								<div class='col-sm-5' >
+								<input type='text' class='form-control' id='reserv_mobile' name='reserv_mobile' placeholder='Mobile' maxlength='10' />
+								</div>
+						</div>
+						<div class='form-group'>
+								<label for='reserv_detail' class='col-sm-3 control-label' >Detail</label>
+								<div class='col-sm-8' >
+								<textarea class="form-control" id='reserv_detail' name='reserv_detail' rows="3"></textarea>
+								</div>
+						</div>
+					</div>
+				</div>
+				<div class='panel-heading'>
+					Billing Details
+				</div>
+				<div class='panel-body'>
+					<div class='radio'>
+						<label >
+							<input type='checkbox' id='use_detail' name='use_detail' />
+							use passenger detail 
+						</label>
+					</div>
+					<hr/>
+					<div id="billing_detail">
+						<div class='form-horizontal'>
+							<div class='form-group'>
+								<label for='reserv_address' class='col-sm-3 control-label' >Address</label>
+								<div class='col-sm-8' >
+									<textarea class='form-control' id='reserv_address' name='reserv_address' rows='3' ></textarea>
+								</div>
+							</div>
+							<div class='form-group'>
+								<label for='reserv_zipcode' class='col-sm-3 control-label' >Zipcode</label>
+								<div class='col-sm-2' >
+									<input type='text' class='form-control' id='reserv_zipcode' name='reserv_zipcode'  maxlength='5' />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='panel-footer'>
+				<button class='btn btn-warning' type='button' id='btnback'>Back</button>&nbsp;<button type='button' class='btn btn-success' id='btnapply'>Apply</button>
+				</div>
+			</div>
+		</div>
+		<div class='col-md-4'>
+		<div class='panel panel-info'>
+			<div class='panel-heading'>
+			Booking Summary	
+			</div>
+			<div class='panel-body'>
+				<div class='form-horizontal'>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-5 control-label' >Origin :</label>
+						<div class='col-sm-7' >
+							<span class='form-control'>Trang / Trang Town<span>
+						</div>
+					</div>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-5 control-label' >Destination  :</label>
+						<div class='col-sm-7' >
+							<span class='form-control'>Surattani / Kao Sok<span>
+						</div>
+					</div>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-5 control-label' >Amount   :</label>
+						<div class='col-sm-7' >
+							<span class='form-control'>5 Bath<span>
+						</div>
+					</div>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-5 control-label' >By   :</label>
+						<div class='col-sm-7' >
+							<span class='form-control'>Car<span>
+						</div>
+					</div>
+					<hr/>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-5 control-label' >Arrival date   :</label>
+						<div class='col-sm-7' >
+							<span class='form-control'>30 Mar 2016<span>
+						</div>
+					</div>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-5 control-label' >Arrival time   :</label>
+						<div class='col-sm-7' >
+							<span class='form-control'>8:00<span>
+						</div>
+					</div>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-5 control-label' >Departure date   :</label>
+						<div class='col-sm-7' >
+							<span class='form-control'>30 Mar 2016<span>
+						</div>
+					</div>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-5 control-label' >Departure time    :</label>
+						<div class='col-sm-7' >
+							<span class='form-control'>8:00<span>
+						</div>
+					</div>
+					<hr/>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-5 control-label' >Adults (12+) :</label>
+						<div class='col-sm-7' >
+							<span class='form-control'>1<span>
+						</div>
+					</div>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-5 control-label' >Children (3-11):</label>
+						<div class='col-sm-7' >
+							<span class='form-control'>0<span>
+						</div>
+					</div>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-5 control-label' >Infants (0-2) :</label>
+						<div class='col-sm-7' >
+							<span class='form-control'>0<span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
 <table width="1000" cellspacing="1" cellpadding="0">
   <tr>
           <td width="612" valign="top"><table width="612" border="0" cellpadding="4" cellspacing="0" class="t1">
             <tr>
-              <td colspan="4" bgcolor="#FFFFFF"><h2 class="t4">Payment Details</h2></td>
-              </tr>
-            <tr>
-              <td colspan="4" bgcolor="#F9F9F9"><table width="540" border="0" align="center" cellpadding="3" cellspacing="4">
-                <tr>
-                  <td bgcolor="#FFFFFF"><span class="t7">Please Note:</span> <span class="t8">Payment is processed by DataCash, the TH's leading secure service.  Your bank may ask for verification via 3-D secure. </span></td>
-                  </tr>
-                </table></td>
-              </tr>
-            <tr>
-              <td width="200" valign="top" bgcolor="#F9F9F9">Payment Type:</td>
-              <td colspan="3" bgcolor="#F9F9F9">
-              <?php
-			  	$sql2 = "select * from payment
-						 where payment_status = 1
-						 order by payment_id";
-				$conn2->query($sql2);
-				while ($row2 = $conn2->fetchArray()){
-			  ?>
-              <input name="reserv_payment" type="radio" value="<?php echo $row2["payment_id"] ?>" <?php if ($row2["payment_id"]==1) echo "checked" ?>/>&nbsp;&nbsp;<?php echo $row2["payment_name"] ?><br />
-              <?php } ?>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4" bgcolor="#FFFFFF"><h3 class="t5">Custom Details</h3></td>
+              <td colspan="4" bgcolor="#FFFFFF"><h3 class="t5">Customer Details</h3></td>
             </tr>
             <tr>
               <td colspan="2" valign="top" bgcolor="#F9F9F9">First name :</td>
@@ -281,30 +437,7 @@ $(document).ready(function(e) {
                 <label for="Detail"></label>
                 <textarea name="reserv_detail" id="reserv_detail" cols="40" rows="5"></textarea>
 </td>
-              <tr>
-                <td height="39" colspan="4" bgcolor="#FFFFFF"><h3 class="t5">Billing Details<br />
-                </h3></td>
-              </tr>
-              <tr>
-                <td colspan="2" bgcolor="#F9F9F9">Use passenger details: </td>
-                <td colspan="2" bgcolor="#F9F9F9"><input name="use_detail" type="checkbox" id="use_detail" value="1" /></td>
-              </tr>
-              <tr>
-                <td colspan="4" bgcolor="#F9F9F9"><span id="billing_detail">
-                  <table width="600" border="0" cellpadding="0" cellspacing="0">
-                    <tr>
-                      <td bgcolor="#F9F9F9" width="210">Address :</td>
-                      <td bgcolor="#F9F9F9"><textarea name="reserv_address" cols="40" rows="5" id="reserv_address"></textarea>
-                        <span class="error">*</span></td>
-                    </tr>
-                    <tr>
-                      <td bgcolor="#F9F9F9">Zipcode :</td>
-                      <td bgcolor="#F9F9F9"><input name="reserv_zipcode" type="text" id="reserv_zipcode" size="10" maxlength="5" />
-                        <span class="error">*</span></td>
-                    </tr>
-                  </table>
-                </span></td>
-              </tr>
+            
               <tr align="center">
               <td height="47" colspan="4" bgcolor="#FFFFFF"><a href="booking-transfer.php" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image39','','images/btn_back-r.png',1)"><img src="images/btn_back.png" alt="Andamantaxis" name="Image39" width="117" height="33" id="Image39" />
                 <input type="image" name="btnSubmit" id="btnSubmit" src="images/bApply.png" />
@@ -324,13 +457,14 @@ $(document).ready(function(e) {
 	
 	
 	foreach ($route_data as $index=>$val){
+		
 	?>
             <table width="380" border="0" align="center" cellpadding="0" cellspacing="5">
               <tr>
                 <td width="10">&nbsp;</td>
                 <td><table width="100%" border="0" cellspacing="0" cellpadding="5">
                   <tr>
-                    <td colspan="2" bgcolor="#68A9D9" style="font-size:18px; font-weight:bold; color:#FFF; padding-left:8px">Book Your Transfer# <?php echo ++$count ?></td>
+                    <td colspan="2" bgcolor="#68A9D9" style="font-size:18px; font-weight:bold; color:#FFF; padding-left:8px">Booking Summery</td>
                     </tr>
                   <tr>
                     <td width="38%" valign="top" bgcolor="#FFFFFF" style="padding-left:18px">
@@ -339,18 +473,18 @@ $(document).ready(function(e) {
                       <em>Amount :</em> <br /> 
                       <em>By :</em> </td>
                     <td width="62%" valign="top" bgcolor="#FFFFFF">
-		<?php echo showprovince($val[0])?> / <?php echo showlocation($val[1]) ?><br />
-        <?php echo showprovince($val[2])?> / <?php echo showlocation($val[3]) ?><br />
+		<?php echo showprovince($val["province_src"])?> / <?php echo showlocation($val["location_src"]) ?><br />
+        <?php echo showprovince($val["province_dist"])?> / <?php echo showlocation($val["location_dist"]) ?><br />
         <?php if ($_SESSION["s_mem_id"]!="")
-				$total = $val[17]*$val[16];
-			  else
-				$total = $val[15]*$val[16];
-			
-			echo number_format($total,2);
-			$grandtotal += $total;
+						$total = $val["price_agent"]*$val["unit"];
+					else
+						$total = $val["price"] * $val["unit"];
+					
+					echo number_format($total,2);
+					$grandtotal += $total;
 						?>
                        <em> baht</em><br />
-        <?php echo showvehicle($val[14]) ?>               
+        <?php echo showvehicle($val["vehicle_type"]) ?>               
                        </td>
                   </tr>
                   <tr>
@@ -360,17 +494,17 @@ $(document).ready(function(e) {
                     <td valign="top" bgcolor="#FFFFFF" style="padding-left:18px">
                       <em>Arrival date :</em> <br />
 					  <em>Arrival time :</em> <br />
-                      <?php if ($val[7]!=""){ ?>
+                      <?php if ($val["departure_date"]!=""){ ?>
                       <em>Departure date :</em> <br />
 					  <em>Departure time :</em> 
                       <?php } ?>
                       </td>
                     <td valign="top" bgcolor="#FFFFFF">
-		<?php echo changeDateMonthShow($val[4]) ?><br />
-        <?php echo $val[5] ?>:<?php echo str_pad($val[6],2,"0",STR_PAD_LEFT); ?><br />
-	  <?php if ($val[7]!=""){ ?>
-        <?php echo changeDateMonthShow($val[7]) ?> <br />
-        <?php echo $val[8] ?>:<?php echo str_pad($val[9],2,"0",STR_PAD_LEFT); ?>
+		<?php echo changeDateMonthShow($val["arrival_date"]) ?><br />
+        <?php echo $val["arrival_hour"] ?>:<?php echo str_pad($val["arrival_minute"],2,"0",STR_PAD_LEFT); ?><br />
+	  <?php if ($val["departure_date"]!=""){ ?>
+        <?php echo changeDateMonthShow($val["departure_date"]) ?> <br />
+        <?php echo $val["departure_hour"] ?>:<?php echo str_pad($val["departure_minute"],2,"0",STR_PAD_LEFT); ?>
       <?php } ?>
                     </td>
                   </tr>
@@ -382,9 +516,9 @@ $(document).ready(function(e) {
                       <em>Children (3-11) : </em><br />
                       <em>Infants (0-2) :</em> </td>
                     <td valign="top" bgcolor="#FFFFFF">
-					<?php echo $val[10] ?> <br />
-                    <?php echo $val[11] ?><br />
-                    <?php echo $val[12] ?></td>
+					<?php echo $val["adults"] ?> <br />
+                    <?php echo $val["children"] ?><br />
+                    <?php echo $val["infants"] ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -402,8 +536,12 @@ $(document).ready(function(e) {
           <td>&nbsp;</td>
         </tr>
   </table>
-      <h3><span class="b2">Terms, Conditions, Privacy Statement<br />
-</span><span class="b1">Payment is processed by DataCash,Your bank may ask for verification via 3-D secure.</span></h3>
+	
+		<h3><span class="b2">Terms, Conditions, Privacy Statement<br />
+		</span><span class="b1">Payment is processed by DataCash,Your bank may ask for verification via 3-D secure.</span></h3>
+	</div>
+
+
 	<input type="hidden" name="total" value="<?php echo $grandtotal ?>">
     </form>	<!-- InstanceEndEditable -->      <p>&nbsp;</p></td>
   </tr>
@@ -428,6 +566,7 @@ $(document).ready(function(e) {
 <map name="Map2" id="Map2">
   <area shape="rect" coords="37,88,395,123" href="index.php" />
 </map>
+<script src='js/bootstrap.js' type='text/javascript' />
 </body>
 <!-- InstanceEnd --></html>
 <?php ob_end_flush() ?>

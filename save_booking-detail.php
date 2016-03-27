@@ -123,7 +123,7 @@ function MM_swapImage() { //v3.0
 				$reserv_zipcode		=	trim($_POST["reserv_zipcode"]);
 				
 				
-//// 2. Save data to DB
+//// 2. Save data to DB : Pass
 //
 		$sql	=	"insert into reservation 
 				set reserv_date			=	now(),
@@ -147,32 +147,33 @@ function MM_swapImage() { //v3.0
 				
 				$route_data = $_SESSION["s_route"][$count];
 				
-					$province1 		= $route_data[0];
-					$location1 		= $route_data[1];
-					$province2 		= $route_data[2];
-					$location2 		= $route_data[3];
-					$date1	   		= $route_data[4];
-					$hour1	   		= $route_data[5];
-					$min1	   		= $route_data[6];
-					$date2 	   		= $route_data[7];
-					$hour2 			= $route_data[8];
-					$min2 			= $route_data[9];
-					$adults 		= $route_data[10];
-					$children		= $route_data[11];
-					$infants		= $route_data[12];
-					$transfer		= $route_data[13];
-					$vtype_id		= $route_data[14];
+					$province1 		= $route_data["province_src"];
+					$location1 		= $route_data["location_src"];
+					$province2 		= $route_data["province_dist"];
+					$location2 		= $route_data["location_dist"];
+					$date1	   		= $route_data["arrival_date"];
+					$hour1	   		= $route_data["arrival_hour"];
+					$min1	   		= $route_data["arrival_minute"];
+					$date2 	   		= $route_data["departure_date"];
+					$hour2 			= $route_data["departure_hour"];
+					$min2 			= $route_data["departure_minute"];
+					$adults 		= $route_data["adults"];
+					$children		= $route_data["children"];
+					$infants		= $route_data["infants"];
+					$transfer		= $route_data["transfer"];
+					$vtype_id		= $route_data["vehicle_type"];
 
 					if ($_SESSION["s_mem_id"]!="")
-					  $total			= $route_data[17];
+						$total			= $route_data["price_agent"];
 					else
-					  $total			= $route_data[15];
+						$total			= $route_data["price"];
 					
-					$unit			= $route_data[16];
+					$unit			= $route_data["unit"];
+					
 					$savedate1 		= saveDate($date1,$hour1.":".$min1);
 					$savedate2 		= saveDate($date2,$hour2.":".$min2);
 					
-					$grandtotal += $total1;
+					$grandtotal += $total;
 					
 //// 2. Save data to DB
 
@@ -191,14 +192,16 @@ function MM_swapImage() { //v3.0
 					rdetail_infants_num			=	'$infants',
 					rdetail_amount				=	'$total',
 					rdetail_status				=	'1'";
-//				echo $sql1;
+					//echo $sql1;
 			$result = $conn->query($sql1);
 		}
+		
+			//clear session 
 			$_SESSION["s_route"] = array();
 			
-//////////////////////send mail//////////////////////////////
+			//////////////////////send mail//////////////////////////////
 			SendMail($reserv_email,$reserv_id,$conn1,$conn2);			
-//////////////////////paypal/////////////////////////////////			
+			//////////////////////paypal/////////////////////////////////			
 			if ($reserv_payment == 2){
 				require('include/paypal.php'); 
 							

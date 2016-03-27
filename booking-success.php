@@ -17,13 +17,15 @@ $booking = unserialize(base64_decode($databooking));
 [11][children] => 0
 [12][infants] => 0
 [13][transfer] => 1
-[14][vehicle_type] => 2
+[14][vehicle_type] => car
 [16][price] => 600.00
 [17][price_agent] => 542.00
 [18][unit] => 1
+[19][vehicle_search] = 1
 */
 
 $booking["unit"] = $_POST["unit"];
+$booking["vehicle_search"] = $_POST["vtype=id"];
 /*create session booking*/
 $num_route = $_GET["num_route"];
 if(isset($_SESSION["s_route"]) && $num_route=="")
@@ -33,16 +35,10 @@ if(isset($_SESSION["s_route"]) && $num_route=="")
 
 $_SESSION["s_route"][$num_route] =$booking;
 
-/*
-array($booking["province_src"],$booking["location_src"],$booking["province_dist"],$booking["location_dist"]
-,$booking["arrival_date"],$booking["arrival_hour"],$booking["arrival_minute"],$booking["departure_date"],$booking["departure_hour"]
-,$booking["departure_minute"],$booking["adults"],$booking["children"],$booking["infants"],$booking["transfer"],$_POST["unit"]);
-*/
-
 ?>
 
 <script>
 
-alert('Booking Success.');
+//alert('Booking Success.');
 window.location.href='booking-transfer.php';
 </script>

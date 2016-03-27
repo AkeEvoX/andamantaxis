@@ -109,8 +109,8 @@ function MM_swapImage() { //v3.0
 			$_SESSION["s_mem_id"]       = "";
 			$_SESSION["s_mem_username"] = "";
 			$_SESSION["s_mem_name"]     = "";
-			
-			exit("<script>window.location='http://".$_SERVER['HTTP_HOST']."/index.php'</script>");	
+			//http://".$_SERVER['HTTP_HOST']."
+			exit("<script>window.location='index.php'</script>");	
 	?>
     <!-- InstanceEndEditable -->      <p>&nbsp;</p></td>
   </tr>

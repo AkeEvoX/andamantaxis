@@ -107,28 +107,30 @@ function MM_swapImage() { //v3.0
     <!-- InstanceBeginEditable name="content" -->
     <?php
 	if ($_POST){
-		$username = trim($_POST["username"]);
+		
+		$email = trim($_POST["email"]);
 		$password = trim($_POST["password"]);
 		$num_route = trim($_POST["num_route"]);
 		
-		$sql = "select * from member where mem_username = '$username'";
+		$sql = "select * from member where mem_contact_email = '$email'";
 		$conn->query($sql);
 		$row = $conn->fetchArray();
 		
 		if ($row["mem_username"]==""){
-			echo "<script>alert('This username doesn\'t found in system');</script>";
+			echo "<script>alert('This username doesn\'t found in system');window.location='index.php';</script>";
 		}elseif ($row["mem_password"]!=$password){
-			echo "<script>alert('This password is incorrect');</script>";
+			echo "<script>alert('This password is incorrect');window.location='index.php';</script>";
 		}else{
 			$_SESSION["s_mem_id"]       = $row["mem_id"];
 			$_SESSION["s_mem_username"] = $row["mem_username"];
 			$_SESSION["s_mem_name"]     = $row["mem_contact_firstname"]." ".$row["mem_contact_lastname"];
 			
 			if ($goto=="")
-				$goto = "/index.php";
+				$goto = "index.php";
 //				$goto = "andamantaxis/index.php";
 			
-			exit("<script>window.location='http://".$_SERVER['HTTP_HOST']."$goto?num_route=$num_route'</script>");	
+			exit("<script>window.location='$goto?num_route=$num_route'</script>");	
+			//exit("<script>window.location='http://".$_SERVER['HTTP_HOST']."$goto?num_route=$num_route'</script>");	
 		}
 	}
 	?>
