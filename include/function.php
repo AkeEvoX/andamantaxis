@@ -1,5 +1,10 @@
 <link rel="stylesheet" type="text/css" href="../backend/css/style.css">
+
 <?php
+require_once('class.phpmailer.php');
+date_default_timezone_set('America/Los_Angeles');
+
+
 function changeDateShow($date){
 	$month = array("","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
 	
@@ -223,31 +228,21 @@ function ShowRoute($id,$conn){
 }
 //****************************************************************************
 function SendMail($email,$reserv_id,$conn,$conn2,$reminder=0){
-	if ($reminder == 0)
-		$subject = '=?utf-8?B?'.base64_encode("Confirm Reservation No.#".$reserv_id).'?=';
-	else
-		$subject = '=?utf-8?B?'.base64_encode("Reminder Reservation No.#".$reserv_id).'?=';
-		
-		$message = '<table id="postTable" width="800" border="0" bordercolor="#999999" style="border: 1px #999999 solid">
-               	  <tr class="headTable">
-                  <td align="center" colspan="2">
-					  <h2>[[ www.AndamanTaxis.com ]]</h2><br>
-					  <h3>TRANSFER VOUCHER</h3>
-				  </td>
-				  </tr>
-				  ';
-				  
+
+
+		//initial customer 
 		$sql = "select * from reservation r
 				inner join payment pay on pay.payment_id = r.reserv_payment
 				where reserv_id = '$reserv_id'
 				order by reserv_id";
+
 		$conn->query($sql);
 		$row = $conn->fetchArray();
 							
 		$date 	   = $row["reserv_date"];
 		$firstname  = $row["reserv_firstname"];
 		$lastname   = $row["reserv_lastname"];
-		$email   	= $row["reserv_email"];
+		//$email   	= $row["reserv_email"];
 		$mobile     = $row["reserv_mobile"];
 		$detail     = $row["reserv_detail"];
 		$address    = $row["reserv_address"];
@@ -255,95 +250,83 @@ function SendMail($email,$reserv_id,$conn,$conn2,$reminder=0){
 		$payment    = $row["payment_name"];
 		$amount  	 = $row["reserv_amount"];
 		$status 	 = $row["reserv_status"];
+
+		//initial tranfer
+		$sql = "select *
+				from reservation r
+				inner join reservation_detail rd on rd.reserv_id = r.reserv_id
+				inner join vehicle_type v on v.vtype_id = rd.rdetail_vehicle
+				where rd.reserv_id = '$reserv_id'
+				order by rdetail_id limit 1 ";
+
+		$conn->query($sql);
+		$row = $conn->fetchArray();
+
+
+		$from = showRoute($row["rdetail_origin"],$conn2);
+		$to  = showRoute($row["rdetail_destination"],$conn2);
+		$vehicle = $row["vtype_name"].' [Unit:'.number_format($row["rdetail_unit"]).']';
+		$pickuptime = ShowDateTime($row["rdetail_date_origin"]);
+
+		if ($row["rdetail_date_origin"]!="")				  
+			$pickuptime .= '/'.ShowDateTime($row["rdetail_date_origin"]);	
+
          
-        $message .= '<tr class="headTable whiteBG">
-                  <td class="topic textCenter" style="text-align:right"><strong>Booking Reference:</strong> </td>
-                  <td class="whiteBG">#'.str_pad($reserv_id,5,"0",STR_PAD_LEFT).'</td>
-                  </td>
-				</tr>
-                <tr class="headTable">
-                  <td class="postHead textCenter" colspan="2">
-					  &nbsp;
-				  </td>
-				</tr>
-                <tr class="headTable">
-                  <td class="topic textCenter" style="text-align:right"><strong>Lead Passenger Name:</strong> </td>
-                  <td class="whiteBG">'.$firstname." ".$lastname.'</td>
-                </tr>
-                <tr class="headTable">
-                  <td class="postHead textCenter" colspan="2">
-					  &nbsp;
-				  </td>
-				</tr>
-				
-               	 <tr class="headTable">
-                  <td align="center" colspan="2">
-					  <h5>Services As Follows:</h5>
-				  </td>
-				 </tr>
-                <tr class="headTable">
-                  <td class="topic textCenter" style="text-align:right"><strong>Payment Due in Cash (Baht):</strong> </td>
-                  <td class="whiteBG">'.number_format($amount,2).'</td>
-                </tr>
-                <tr class="headTable">
-                  <td class="postHead textCenter" colspan="2">
-					  &nbsp;
-				  </td>
-				</tr>';
-				
-			$sql = "select *
-					from reservation r
-					inner join reservation_detail rd on rd.reserv_id = r.reserv_id
-					inner join vehicle_type v on v.vtype_id = rd.rdetail_vehicle
-					where rd.reserv_id = '$reserv_id'
-					order by rdetail_id";
-			$conn->query($sql);
-			while($row = $conn->fetchArray()){
 
-   $message .= '<tr class="headTable">
-                  <td class="topic textCenter" style="text-align:right"><strong>Pick-up from:</strong> </td>
-                  <td class="whiteBG">'.showRoute($row["rdetail_origin"],$conn2).'</td>
-                </tr>
-				<tr class="headTable">
-                  <td class="topic textCenter" style="text-align:right"><strong>Transfer to:</strong> </td>
-                  <td class="whiteBG">'.showRoute($row["rdetail_destination"],$conn2).'</td>
-                </tr>
-				<tr class="headTable">
-                  <td class="topic textCenter" style="text-align:right"><strong>Vehicle Type(s):</strong> </td>
-                  <td class="whiteBG">'.$row["vtype_name"].' [Unit:'.number_format($row["rdetail_unit"]).']</td>
-                </tr>
-				<tr class="headTable">
-                  <td class="topic textCenter" style="text-align:right"><strong>Pick-up:</strong> </td>
-                  <td class="whiteBG">'.ShowDateTime($row["rdetail_date_origin"]);
-				  
-	if ($row["rdetail_date_origin"]!="")				  
-	    $message .= '/'.ShowDateTime($row["rdetail_date_origin"]);	
-					 
-	$message .= '</td>
-                </tr>
-                <tr class="headTable">
-                  <td class="postHead textCenter" colspan="2">
-					  &nbsp;
-				  </td>
-				</tr>';
-			}
+	if ($reminder == 0)
+		$subject = '=?utf-8?B?'.base64_encode("Confirm Reservation No.#".$reserv_id).'?=';
+	else
+		$subject = '=?utf-8?B?'.base64_encode("Reminder Reservation No.#".$reserv_id).'?=';
 
-     $message .= '<tr class="headTable">
-                  <td align="center" colspan="2">
-					 <h4><strong>EMERGENCY CONTACT NUMBER:</strong> 083-437-2438 , 089-694-1116 , 087-407-1076 </h4>
-					 <h5><strong>Register Office:</strong> 42/186 Soi Ratchadaphisek 36 Chankasem Chatuchak Bangkok. 10900</h5>
-					 <h5><strong>Email:</strong> lek_nanomixs@hotmail.com </h5>
-				  </td>
-				 </tr>
-              </table>';	
-	
+
+		$templete = file_get_contents('include/templete-payment.php');
+
+		$templete = str_replace('#bookid',str_pad($reserv_id,5,"0",STR_PAD_LEFT),$templete);
+		$templete = str_replace('#passenger',$firstname." ".$lastname,$templete);
+		$templete = str_replace('#cash',number_format($amount,2),$templete);
+
+		$templete = str_replace('#from',$from,$templete);
+		$templete = str_replace('#to',$to,$templete);
+		$templete = str_replace('#vehicle',$vehicle,$templete);
+		$templete = str_replace('#pickuptime',$pickuptime,$templete);
+
+		$mail = new PHPMailer();
+
+		$mail->IsSMTP();
+
+
+		$mail->Subject = $subject;
+		$mail->MsgHTML($templete);//body mail
+
+		$mail->CharSet = "utf-8";
+		$mail->Host="smtp.andamantaxis.com";
+		$mail->SMTPAuth = true;
+		$mail->IsHTML(true);
+		$mail->Username = "mail@andamantaxis.com"; 
+		$mail->Password = "andamantaxis@2016"; 
+		$mail->SetFrom("mail@andamantaxis.com", "Andamantaxis.com");
+		$mail->AddBcc("Andamantaxis@gmail.com", "notify to admin");
+		$mail->AddReplyTo("mail@andamantaxis.com", "admin");
+
+		$mail->AddAddress($email); 
+
+		$mail->Send();
+		/*
+		if(!$mail->Send()) {
+			echo "Mailer Error: " . $mail->ErrorInfo;
+		} else {
+			echo "Message sent!";
+		}
+		*/
+		
+		/*
 		$headers = 'From: admin@andamantaxis.com'."\r\n" ;
 		$headers .= 'Bcc: andamantaxis@gmail.com'."\r\n" ;
 		$headers .= 'X-Mailer: PHP/' . phpversion()."\r\n";
 		$headers .= "MIME-Version: 1.0\r\n";
 		$headers .= "Content-type: text/html; charset=UTF-8\r\n"; 
-			
-		@mail($email,$subject,$message,$headers);	
+		*/
+		//@mail($email,$subject,$message,$headers);	
 }
 //****************************************************************************
 function SendMailOld($email,$reserv_id,$conn,$conn2,$reminder=0){

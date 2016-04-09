@@ -1,11 +1,11 @@
 <?php
 
 
-	$host = "localhost";
+	$host = "127.0.0.1";
 	$port = "3306";
 
-	$username = "root";
-	$password = "P@ssw0rd";
+	$username = "remotedb";
+	$password = "remotedb";
 	$dbname = "andaman4_reserv";
 
 	/*

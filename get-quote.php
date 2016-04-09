@@ -178,6 +178,8 @@ function addCommas(nStr)
 													"infants"=>$_POST["infants"],
 													"transfer"=>$_POST["transfer"]
 													);
+													
+													
 	
 			//check province origin is null and then redirect to page index.php
 			if ($province1==""){
@@ -199,9 +201,10 @@ function addCommas(nStr)
 	  
 	  //$vehicle_type
 	  
-	  	$sql = "select * from vehicle_type
+	  	$sql = "select vehicle_type.*,travel_price.*,travel_route.*,loc.location_type from vehicle_type
 				inner join travel_price ON vehicle_type.vtype_id = travel_price.vtype_id 
 				inner join travel_route ON travel_route.troute_id = travel_price.troute_id 
+				left join travel_location loc ON $location2 = loc.tlocation_id
 				where vtype_status = 1 
 				and tprice_bound = '$transfer' 
 	and ((travel_route.tlocation_id_origin = '$location1' and travel_route.tlocation_id_destination = '$location2')
@@ -220,21 +223,25 @@ function addCommas(nStr)
 				
 		$conn->query($sql);
 		for ($i=1; $i<=$conn->numRow(); $i++){
+			
 			$row = $conn->fetchArray();
 			
 			/* initial meta vehicle */
-			$car	=	ceil(($adults+$children+$infants)/$row["seat"]);
+			$peolpe = $adults+$children+$infants;
+			$car	=	ceil(($peolpe)/$row["seat"]);
+			
 		    $total1 = $row["tprice_amount"] * $car;
 		  	$total2 = $row["tprice_amount_agent"] * $car;
 			
 			$temp_booking["vehicle_type"] = $row["vtype_id"];
 			$temp_booking["price"] = $total1;
 			$temp_booking["price_agent"] = $total2;
+			$temp_booking["locationtype"] = $row["location_type"];
 			//$temp_booking["vehicle_search"] = $row["vtype_id"];
 			
 			
 	  ?>
-      <form name="form2" method="post" action="booking-success.php?num_route=<? echo $_GET["num_route"]; ?>"  >
+      <form name="form2" method="post" action="booking-success.php?num_route=<? echo $_GET["num_route"]; ?>&locationtype=<? echo $row["location_type"]; ?>" >
 	  <input type='hidden' name='databooking' value='<? echo base64_encode(serialize($temp_booking)); ?>' />
 	  
 	  
@@ -292,9 +299,9 @@ function addCommas(nStr)
           <td align="center"><?php echo $row["troute_interval"] ?></td>
           <td align="right"><span class="showpriceperson" data-direction="<?php echo $i ?>"><?php 
 		  if ($_SESSION["s_mem_id"]!="")
-		  	echo number_format (round ($total2/($children+$adults+$infants),2),2);
+		  	echo number_format (round ($total2/($peolpe),2),2);
 		  else
-		  	echo number_format (round ($total1/($children+$adults+$infants),2),2);
+		  	echo number_format (round ($total1/($peolpe),2),2);
 		   ?>
           </span> Baht per Person</td>
         </tr>

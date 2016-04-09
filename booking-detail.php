@@ -231,7 +231,7 @@ $(document).ready(function(e) {
 <form action="save_booking-detail.php" method="post" enctype="multipart/form-data" name="form2" id="form2">
 <div class='container'>
 	<div class='row'>
-		<div class='col-md-8' >
+		<div class='col-md-7' >
 			<div class='panel panel-primary'>
 				<div class='panel-heading'>
 					Payment Detail
@@ -240,6 +240,16 @@ $(document).ready(function(e) {
 					Please Note: Payment is processed by DataCash, the TH's leading secure service. Your bank may ask for verification via 3-D secure. <hr />
 					Payment Type : 
 							<?
+							//# Booking Inforatmion
+							$item =$_SESSION["s_route"][0];
+							
+							 if ($_SESSION["s_mem_id"]!="")
+								$total = $item["price_agent"]*$item["unit"];
+							else
+								$total = $item["price"] * $item["unit"];
+			
+							$total =  number_format($total,2);
+							
 							 	$sql2 = "select * from payment where payment_status = 1 order by payment_id ";
 							$conn2->query($sql2);
 							while ($row2 = $conn2->fetchArray()){
@@ -285,6 +295,31 @@ $(document).ready(function(e) {
 								<input type='text' class='form-control' id='reserv_mobile' name='reserv_mobile' placeholder='Mobile' maxlength='10' />
 								</div>
 						</div>
+						<? if($item["locationtype"]=="1") { ?>
+						
+						<div class='form-group'>
+								<label for='reserv_flight' class='col-sm-3 control-label' >Flight Arrival Number </label>
+								<div class='col-sm-5' >
+								<input type='text' class='form-control' id='reserv_flight' name='reserv_flight' placeholder='Flight Number' />
+								</div>
+						</div>
+						
+						<? } else { ?>
+						
+						<div class='form-group'>
+							<label for='reserv_hotel' class='col-sm-3 control-label' >Hotel Name</label>
+							<div class='col-sm-5' >
+							<input type='text' class='form-control' id='reserv_hotel' name='reserv_hotel' placeholder='Hotel Name' />
+						</div>
+						</div>
+							<div class='form-group'>
+								<label for='reserv_hotel_dest' class='col-sm-3 control-label' >Hotel name in Destination</label>
+								<div class='col-sm-5' >
+								<input type='text' class='form-control' id='reserv_hotel_dest' name='reserv_hotel_dest' placeholder='Hotel Name' />
+								</div>
+						</div>
+						
+						<? } ?>
 						<div class='form-group'>
 								<label for='reserv_detail' class='col-sm-3 control-label' >Detail</label>
 								<div class='col-sm-8' >
@@ -322,11 +357,11 @@ $(document).ready(function(e) {
 					</div>
 				</div>
 				<div class='panel-footer'>
-				<button class='btn btn-warning' type='button' id='btnback'>Back</button>&nbsp;<button type='button' class='btn btn-success' id='btnapply'>Apply</button>
+				<a href='booking-transfer.php' class='btn btn-warning' type='button' id='btnback'>Back</a>&nbsp;<button type='submit' class='btn btn-success' id='btnapply'>Apply</button>
 				</div>
 			</div>
 		</div>
-		<div class='col-md-4'>
+		<div class='col-md-5'>
 		<div class='panel panel-info'>
 			<div class='panel-heading'>
 			Booking Summary	
@@ -334,71 +369,76 @@ $(document).ready(function(e) {
 			<div class='panel-body'>
 				<div class='form-horizontal'>
 					<div class='form-group form-group-sm'>
-						<label class='col-sm-5 control-label' >Origin :</label>
-						<div class='col-sm-7' >
-							<span class='form-control'>Trang / Trang Town<span>
+						<label class='col-sm-4 control-label' >Origin :</label>
+						<div class='col-sm-8' >
+							<span class='form-control'><? echo showprovince($item["province_src"])." / ".showlocation($item["location_src"]); ?><span>
 						</div>
 					</div>
 					<div class='form-group form-group-sm'>
-						<label class='col-sm-5 control-label' >Destination  :</label>
-						<div class='col-sm-7' >
-							<span class='form-control'>Surattani / Kao Sok<span>
+						<label class='col-sm-4 control-label' >Destination  :</label>
+						<div class='col-sm-8' >
+							<span class='form-control'><? echo showprovince($item["province_dist"])." / ". showlocation($item["location_dist"]); ?><span>
 						</div>
 					</div>
 					<div class='form-group form-group-sm'>
-						<label class='col-sm-5 control-label' >Amount   :</label>
-						<div class='col-sm-7' >
-							<span class='form-control'>5 Bath<span>
+						<label class='col-sm-4 control-label' >Amount   :</label>
+						<div class='col-sm-8' >
+							<div class='input-group'>
+									<label class='form-control'  aria-describedby="basic-addon2"  ><? echo $total ;?></label><span class="input-group-addon" id="basic-addon2">Bath</span>
+							</div>
+							
 						</div>
 					</div>
 					<div class='form-group form-group-sm'>
-						<label class='col-sm-5 control-label' >By   :</label>
-						<div class='col-sm-7' >
-							<span class='form-control'>Car<span>
-						</div>
-					</div>
-					<hr/>
-					<div class='form-group form-group-sm'>
-						<label class='col-sm-5 control-label' >Arrival date   :</label>
-						<div class='col-sm-7' >
-							<span class='form-control'>30 Mar 2016<span>
-						</div>
-					</div>
-					<div class='form-group form-group-sm'>
-						<label class='col-sm-5 control-label' >Arrival time   :</label>
-						<div class='col-sm-7' >
-							<span class='form-control'>8:00<span>
-						</div>
-					</div>
-					<div class='form-group form-group-sm'>
-						<label class='col-sm-5 control-label' >Departure date   :</label>
-						<div class='col-sm-7' >
-							<span class='form-control'>30 Mar 2016<span>
-						</div>
-					</div>
-					<div class='form-group form-group-sm'>
-						<label class='col-sm-5 control-label' >Departure time    :</label>
-						<div class='col-sm-7' >
-							<span class='form-control'>8:00<span>
+						<label class='col-sm-4 control-label' >By   :</label>
+						<div class='col-sm-8' >
+							<span class='form-control'><? echo showvehicle($item["vehicle_type"]); ?><span>
 						</div>
 					</div>
 					<hr/>
 					<div class='form-group form-group-sm'>
-						<label class='col-sm-5 control-label' >Adults (12+) :</label>
-						<div class='col-sm-7' >
-							<span class='form-control'>1<span>
+						<label class='col-sm-4 control-label' >Arrival date   :</label>
+						<div class='col-sm-8' >
+							<span class='form-control'><?  echo changeDateMonthShow($item["arrival_date"]);?><span>
 						</div>
 					</div>
 					<div class='form-group form-group-sm'>
-						<label class='col-sm-5 control-label' >Children (3-11):</label>
-						<div class='col-sm-7' >
-							<span class='form-control'>0<span>
+						<label class='col-sm-4 control-label' >Arrival time   :</label>
+						<div class='col-sm-8' >
+							<span class='form-control'><? echo $item["arrival_hour"].":".str_pad($item["arrival_minute"],2,"0",STR_PAD_LEFT);?><span>
+						</div>
+					</div>
+					<? if($item["transfer"] == "2"){ ?>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-4 control-label' >Departure date   :</label>
+						<div class='col-sm-8' >
+							<span class='form-control'><?  echo changeDateMonthShow($item["departure_date"]);?><span>
 						</div>
 					</div>
 					<div class='form-group form-group-sm'>
-						<label class='col-sm-5 control-label' >Infants (0-2) :</label>
-						<div class='col-sm-7' >
-							<span class='form-control'>0<span>
+						<label class='col-sm-4 control-label' >Departure time    :</label>
+						<div class='col-sm-8' >
+							<span class='form-control'><? echo $item["departure_hour"].":".str_pad($item["departure_minute"],2,"0",STR_PAD_LEFT); ?><span>
+						</div>
+					</div>
+					<? } ?>
+					<hr/>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-4 control-label' >Adults (12+) :</label>
+						<div class='col-sm-8' >
+							<span class='form-control'><? echo $item["adults"];?><span>
+						</div>
+					</div>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-4 control-label' >Children (3-11):</label>
+						<div class='col-sm-8' >
+							<span class='form-control'><? echo $item["children"];?><span>
+						</div>
+					</div>
+					<div class='form-group form-group-sm'>
+						<label class='col-sm-4 control-label' >Infants (0-2) :</label>
+						<div class='col-sm-8' >
+							<span class='form-control'><? echo $item["infants"];?><span>
 						</div>
 					</div>
 				</div>
@@ -406,144 +446,15 @@ $(document).ready(function(e) {
 		</div>
 		</div>
 	</div>
-<table width="1000" cellspacing="1" cellpadding="0">
-  <tr>
-          <td width="612" valign="top"><table width="612" border="0" cellpadding="4" cellspacing="0" class="t1">
-            <tr>
-              <td colspan="4" bgcolor="#FFFFFF"><h3 class="t5">Customer Details</h3></td>
-            </tr>
-            <tr>
-              <td colspan="2" valign="top" bgcolor="#F9F9F9">First name :</td>
-              <td colspan="2" bgcolor="#F9F9F9"><input name="reserv_firstname" type="text" id="reserv_firstname" />
-              <span class="error">*</span></td>
-              </tr>
-            <tr>
-              <td colspan="2" valign="top" bgcolor="#F9F9F9">Last name :</td>
-              <td colspan="2" bgcolor="#F9F9F9"><input type="text" name="reserv_lastname" id="reserv_lastname" />
-              <span class="error">*</span></td>
-              </tr>
-            <tr>
-              <td colspan="2" valign="top" bgcolor="#F9F9F9">E-mail address :</td>
-              <td colspan="2" bgcolor="#F9F9F9"><input type="text" name="reserv_email" id="reserv_email"  />
-              <span class="error">*</span></td>
-              </tr>
-            <tr>
-              <td colspan="2" valign="top" bgcolor="#F9F9F9">Mobile : </td>
-              <td colspan="2" bgcolor="#F9F9F9"><input name="reserv_mobile" type="text" id="reserv_mobile" maxlength="10" />
-              <span class="error">*</span></td>
-              </tr>
-              <td height="107" colspan="2" valign="top" bgcolor="#F9F9F9">Detail :</td>
-              <td colspan="2" bgcolor="#F9F9F9"><label for="textfield"></label>
-                <label for="Detail"></label>
-                <textarea name="reserv_detail" id="reserv_detail" cols="40" rows="5"></textarea>
-</td>
-            
-              <tr align="center">
-              <td height="47" colspan="4" bgcolor="#FFFFFF"><a href="booking-transfer.php" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image39','','images/btn_back-r.png',1)"><img src="images/btn_back.png" alt="Andamantaxis" name="Image39" width="117" height="33" id="Image39" />
-                <input type="image" name="btnSubmit" id="btnSubmit" src="images/bApply.png" />
-              </a></td>
-            </tr>
-          </table></td>
-          <td width="383" valign="top"><?php
-			
-		
-//		echo "<pre>";
-//		print_r($_SESSION["s_route"]);
-//		echo "</pre>";
-//		exit();
-
-		$grandtotal = 0;
-		$route_data = $_SESSION["s_route"];
 	
-	
-	foreach ($route_data as $index=>$val){
-		
-	?>
-            <table width="380" border="0" align="center" cellpadding="0" cellspacing="5">
-              <tr>
-                <td width="10">&nbsp;</td>
-                <td><table width="100%" border="0" cellspacing="0" cellpadding="5">
-                  <tr>
-                    <td colspan="2" bgcolor="#68A9D9" style="font-size:18px; font-weight:bold; color:#FFF; padding-left:8px">Booking Summery</td>
-                    </tr>
-                  <tr>
-                    <td width="38%" valign="top" bgcolor="#FFFFFF" style="padding-left:18px">
-                      <em>Origin :</em> <br />
-                      <em>Destination : </em><br />
-                      <em>Amount :</em> <br /> 
-                      <em>By :</em> </td>
-                    <td width="62%" valign="top" bgcolor="#FFFFFF">
-		<?php echo showprovince($val["province_src"])?> / <?php echo showlocation($val["location_src"]) ?><br />
-        <?php echo showprovince($val["province_dist"])?> / <?php echo showlocation($val["location_dist"]) ?><br />
-        <?php if ($_SESSION["s_mem_id"]!="")
-						$total = $val["price_agent"]*$val["unit"];
-					else
-						$total = $val["price"] * $val["unit"];
-					
-					echo number_format($total,2);
-					$grandtotal += $total;
-						?>
-                       <em> baht</em><br />
-        <?php echo showvehicle($val["vehicle_type"]) ?>               
-                       </td>
-                  </tr>
-                  <tr>
-                    <td height="0" colspan="2" valign="top" bgcolor="#FFFFFF"><hr color="#CCCCCC" width="95%"/></td>
-                    </tr>
-                  <tr>
-                    <td valign="top" bgcolor="#FFFFFF" style="padding-left:18px">
-                      <em>Arrival date :</em> <br />
-					  <em>Arrival time :</em> <br />
-                      <?php if ($val["departure_date"]!=""){ ?>
-                      <em>Departure date :</em> <br />
-					  <em>Departure time :</em> 
-                      <?php } ?>
-                      </td>
-                    <td valign="top" bgcolor="#FFFFFF">
-		<?php echo changeDateMonthShow($val["arrival_date"]) ?><br />
-        <?php echo $val["arrival_hour"] ?>:<?php echo str_pad($val["arrival_minute"],2,"0",STR_PAD_LEFT); ?><br />
-	  <?php if ($val["departure_date"]!=""){ ?>
-        <?php echo changeDateMonthShow($val["departure_date"]) ?> <br />
-        <?php echo $val["departure_hour"] ?>:<?php echo str_pad($val["departure_minute"],2,"0",STR_PAD_LEFT); ?>
-      <?php } ?>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td height="0" colspan="2" valign="top" bgcolor="#FFFFFF"><hr color="#CCCCCC" width="95%"/></td>
-                    </tr>
-                  <tr>
-                    <td valign="top" bgcolor="#FFFFFF" style="padding-left:18px; padding-bottom:18px"><em>Adults (12+) :</em> <br />
-                      <em>Children (3-11) : </em><br />
-                      <em>Infants (0-2) :</em> </td>
-                    <td valign="top" bgcolor="#FFFFFF">
-					<?php echo $val["adults"] ?> <br />
-                    <?php echo $val["children"] ?><br />
-                    <?php echo $val["infants"] ?></td>
-                  </tr>
-                </table></td>
-              </tr>
-            </table>
-            <br />
-            <?php } ?>
-            <p>&nbsp;</p></td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-        </tr>
-  </table>
-	
-		<h3><span class="b2">Terms, Conditions, Privacy Statement<br />
-		</span><span class="b1">Payment is processed by DataCash,Your bank may ask for verification via 3-D secure.</span></h3>
-	</div>
-
-
-	<input type="hidden" name="total" value="<?php echo $grandtotal ?>">
-    </form>	<!-- InstanceEndEditable -->      <p>&nbsp;</p></td>
+		<div class="jumbotron">
+		  <h3>Terms, Conditions, Privacy Statement</h3>
+		  <p>Payment is processed by DataCash,Your bank may ask for verification via 3-D secure.</p>
+		</div>
+		</div>
+		<input type="hidden" id='total' name="total" value="<? echo $total; ?>">
+		</form>	<!-- InstanceEndEditable -->      <p>&nbsp;</p>
+	</td>
   </tr>
   <tr>
     <td align="left" valign="top"><table width="1280" border="0" cellpadding="0" cellspacing="0">
@@ -566,7 +477,7 @@ $(document).ready(function(e) {
 <map name="Map2" id="Map2">
   <area shape="rect" coords="37,88,395,123" href="index.php" />
 </map>
-<script src='js/bootstrap.js' type='text/javascript' />
+<script src='js/bootstrap.js' type='text/javascript' ></script>
 </body>
 <!-- InstanceEnd --></html>
 <?php ob_end_flush() ?>

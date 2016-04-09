@@ -10,15 +10,6 @@
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Welcome to Andamantaxis</title>
 <!-- InstanceEndEditable -->
-<style type="text/css">
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	background-color: #D0EBFF;
-}
-</style>
 <script type="text/javascript">
 	function MM_swapImgRestore() { //v3.0
 	  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
@@ -43,11 +34,24 @@ body {
 	}
 
 </script>
+<link href="css/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+/*customize*/
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #D0EBFF;
+}
+</style>
 <link href="css/midtop.css" rel="stylesheet" type="text/css" />
 <link href="css/div-input.css" rel="stylesheet" type="text/css" />
 <link href="css/dropdown.css" rel="stylesheet" type="text/css" />
 <link href="css/midright2.css" rel="stylesheet" type="text/css" />
 <link href="css/index.css" rel="stylesheet" type="text/css" />
+
+
 <!-- InstanceBeginEditable name="head" -->
 <script type="text/javascript" src="jquery/jquery-ui/js/jquery.min.js"></script>
 <script type="text/javascript" src="jquery/jquery-ui/js/jquery-ui.min.js"></script>
@@ -226,6 +230,7 @@ div.ui-datepicker, .ui-datepicker td{
           <tr>
             <td height="677" align="left" valign="top" background="images/4-1-1.jpg" bg><!-- InstanceBeginEditable name="content" -->
 <?php
+
 	if ($_POST["email"]!=""){
 		$email = trim($_POST["email"]);
 		$password = trim($_POST["password"]);
@@ -345,7 +350,7 @@ div.ui-datepicker, .ui-datepicker td{
                   <tr>
                     <td class="s3">Adults (12+):</td>
                     <td><select name="adults" class="s2" id="adults">
-                      <?php for ($i=1; $i<=99; $i++){ ?>
+                      <?php for ($i=1; $i<=20; $i++){ ?>
                       <option value="<?php echo $i ?>" <?php if ($i==2) echo "selected"; ?>><?php echo str_pad($i,2,"0",STR_PAD_LEFT) ?></option>
                       <?php } ?>
                     </select></td>
@@ -353,7 +358,7 @@ div.ui-datepicker, .ui-datepicker td{
                   <tr>
                     <td class="s3">Children (3-11):</td>
                     <td><select name="children" class="s2" id="children">
-                      <?php for ($i=0; $i<=99; $i++){ ?>
+                      <?php for ($i=0; $i<=10; $i++){ ?>
                       <option value="<?php echo $i ?>"><?php echo str_pad($i,2,"0",STR_PAD_LEFT) ?></option>
                       <?php } ?>
                     </select></td>
@@ -361,7 +366,7 @@ div.ui-datepicker, .ui-datepicker td{
                   <tr>
                     <td class="s3">Infants (0-2):</td>
                     <td><select name="infants" class="s2" id="infants">
-                      <?php for ($i=0; $i<=99; $i++){ ?>
+                      <?php for ($i=0; $i<=10; $i++){ ?>
                       <option value="<?php echo $i ?>"><?php echo str_pad($i,2,"0",STR_PAD_LEFT) ?></option>
                       <?php } ?>
                     </select></td>
@@ -400,7 +405,29 @@ div.ui-datepicker, .ui-datepicker td{
         </table></td>
         <td width="587" align="left" valign="top"><table width="200" border="0" cellpadding="0" cellspacing="0">
           <tr>
-            <td align="left" valign="top"><img src="images/4-3-1.jpg" width="432" height="418" /></td>
+            <td align="left" valign="top" style='padding-top:60px;padding-left:20px;' >
+				<div class='panel panel-default' style='width:360px;'>
+					<div class="panel-body">
+						<h4>Top Destinations</h4>
+						<ul class="list-group">
+						<li class="list-group-item list-group-item-success">
+							<span class="badge">Prices From</span>
+							Transfers in....
+						  </li>
+						  <?
+						  $sql = "select * from topdistinations";
+						  $conn->query($sql);
+							while ($row = $conn->fetchArray()){
+								echo "<li class=\"list-group-item\"> ";
+								echo "<span class=\"badge\">".$row["price"]."</span>";
+								echo $row["name"]."</li>";
+							}
+						  ?>
+						</ul>
+					</div>
+				</div>
+			</td>
+			
             </tr>
           <tr>
             <td height="280" align="left" valign="top">
@@ -458,15 +485,14 @@ div.ui-datepicker, .ui-datepicker td{
     </table></td>
   </tr>
   <tr>
-    <td align="left" valign="top"><table width="1280" border="0" cellpadding="0" cellspacing="0">
+    <td align="left" valign="top">
+	<table width="1280" border="0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="440" align="left" valign="top"><img src="images/5-1_01.jpg" width="440" height="282" /></td>
         <td width="409" align="left" valign="top"><img src="images/5-2_01.jpg" width="408" height="282" /></td>
         <td width="431" align="left" valign="top"><img src="images/5-3_01.jpg" width="432" height="282" /></td>
       </tr>
-      <tr>
 		<? echo $bottonlink;   ?>
-      </tr>
     </table></td>
   </tr>
   <tr>
@@ -483,5 +509,6 @@ div.ui-datepicker, .ui-datepicker td{
 </map>
 </body>
 <!-- InstanceEnd -->
+<script type="text/javascript" src="js/bootstrap.js"  ></script>
 </html>
 <?php ob_end_flush() ?>

@@ -1,6 +1,9 @@
-<?php ob_start(); ?>
-<?php require_once('include/connect.php'); ?>
-<?php require_once('include/function.php'); ?>
+<?
+ob_start(); 
+require_once('include/connect.php'); 
+require_once('include/function.php'); 
+require_once('link.php');
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/work_blank.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
@@ -408,11 +411,9 @@ div.ui-datepicker, .ui-datepicker td{
         <td width="409" align="left" valign="top"><img src="images/5-2_01.jpg" width="408" height="282" /></td>
         <td width="431" align="left" valign="top"><img src="images/5-3_01.jpg" width="432" height="282" /></td>
       </tr>
-      <tr>
-        <td align="left" valign="top"><a href="booking.php" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image46','','images/5-1_02-r.jpg',1)"><img src="images/5-1_02.jpg" name="Image46" width="440" height="75" border="0" id="Image46" /></a></td>
-        <td width="409" align="left" valign="top"><a href="booking.php" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image47','','images/5-2_02-r.jpg',1)"><img src="images/5-2_02.jpg" name="Image47" width="408" height="75" border="0" id="Image47" /></a></td>
-        <td width="431" align="left" valign="top"><a href="booking.php" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image48','','images/5-3_02-r.jpg',1)"><img src="images/5-3_02.jpg" name="Image48" width="432" height="75" border="0" id="Image48" /></a></td>
-      </tr>
+	   <tr>
+		<? echo $bottonlink;   ?>
+      </tr>	
     </table></td>
   </tr>
   <tr>

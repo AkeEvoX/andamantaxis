@@ -4,7 +4,8 @@
 <input type="hidden" name="return" value="http://www.andamantaxis.com/confirm_paypal.php?id=<?php echo $reserv_id; ?>">
 <input type="hidden" name="cancel_return" value="http://www.andamantaxis.com/cancel_paypal.php?id=<?php echo $reserv_id; ?>">
 <input type="hidden" name="item_name" value="Andaman"><input type="hidden" name=" & item_number & " value="<?php echo $reserv_id; ?>">
-<input type="hidden" name="amount" value="<?php echo $grandtotal; ?>"><input type="hidden" name="currency_code" value="THB">
+<input type="hidden" name="amount" value="<?php echo $grandtotal; ?>">
+<input type="hidden" name="currency_code" value="THB">
 <input type="hidden" name="no_note" value="0">
 <input type="hidden" name="no_shipping" value="0">
 <input type="hidden" name="undefined_quantity" value="0">

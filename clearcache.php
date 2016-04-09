@@ -1,4 +1,6 @@
 <?
+require_once("include/connect.php");
+require_once("include/function.php");
 // Initialize the session.
 // If you are using session_name("something"), don't forget it now!
 session_start();
@@ -16,8 +18,27 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
+
+/* test send mail */
+/*$mail = "werawat.l@icloud.com";
+$reserveid = 60;
+$reminder = 0;
+SendMail($mail,$reserveid,$conn,$conn2,$reminder);
+*/
+
+$to = "svargalok@gmail.com";
+$subject = "My subject";
+$txt = "Hello world!";
+$headers = "From: webmaster@example.com" . "\r\n" .
+"CC: somebodyelse@example.com";
+
+mail($to,$subject,$txt,$headers);
+
+
 // Finally, destroy the session.
 session_destroy();
+
+
 
 ?>
 

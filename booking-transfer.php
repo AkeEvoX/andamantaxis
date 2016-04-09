@@ -1,13 +1,9 @@
-<?php ob_start(); 
-		
+<?
+ob_start(); 
+require_once('include/connect.php'); 
+require_once('include/function.php'); 
+require_once('link.php');
 ?>
-<?php require_once('include/connect.php'); ?>
-<?php require_once('include/function.php'); 
-//print_r($_POST);
-//		print_r($_SESSION);
-//		print_r($route_data);exit;	
-?>
-<? require_once('link.php');?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/work_blank.dwt.php" codeOutsideHTMLIsLocked="false" -->
@@ -16,15 +12,7 @@
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Welcome to Andamantaxis</title>
 <!-- InstanceEndEditable --> 
-<style type="text/css">
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	background-color: #D0EBFF;
-}
-</style>
+
 <script type="text/javascript">
 function MM_swapImgRestore() { //v3.0
   var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
@@ -48,6 +36,16 @@ function MM_swapImage() { //v3.0
    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
 }
 </script>
+<link href='css/bootstrap/bootstrap.css' rel='stylesheet' type='text/css' />
+<style type="text/css">
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #D0EBFF;
+}
+</style>
 <link href="css/midtop.css" rel="stylesheet" type="text/css" />
 <link href="css/div-input.css" rel="stylesheet" type="text/css" />
 <link href="css/dropdown.css" rel="stylesheet" type="text/css" />
@@ -160,93 +158,112 @@ function MM_swapImage() { //v3.0
 		exit();
 		*/
 		$route_data = $_SESSION["s_route"];
-
  	
 	if ($route_data == array())
 		exit("<script>window.location='index.php';</script>");
+	
+	$index = 0 ;
+	$val = $route_data[$index];
+	
+	if ($_SESSION["s_mem_id"]!="")
+	{
+		  $amount = number_format($val["price_agent"] * $val["unit"] , 2);
+	}
+	else 
+	{
+		  $amount  = number_format($val["price"] * $val["unit"] , 2); 
+	}
+	
+	
 		
-		
-	foreach ($route_data as $index=>$val){
+	//foreach ($route_data as $index=>$val){
 		
 			//echo "key is ".$index." val is ". $val["province_src"] . " <br /> ";
 	?>
-      <table width="619" border="0" align="center" cellpadding="0" cellspacing="0" class="s11" >
-        <tr>
-          <td colspan="6"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td width="8%">&nbsp;</td>
-                <td><h1>Book Your Transfer </h1></td>
-                <td width="23%"><a href="booking.php?num_route=<?php echo $index ?>" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image50','','images/bEditleg-r.png',1)"><img src="images/bEditleg.png" alt="" name="Image50" width="117" height="34" id="Image50" /></a></td>
-                <td width="2%"></td>
-                </tr>
-            <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-            </table></td>
-          </tr>
-        <tr>
-          <td width="50" valign="top">&nbsp;</td>
-          <td width="197" valign="top"><strong style="font-size:22px">1.Where </strong></td>
-          <td colspan="4" valign="top"><em>Origin :</em> <?php echo showprovince($val["province_src"])?>  / <?php echo showlocation($val["location_src"]) ?><br/>
-            <em>Destination :</em> <?php echo showprovince($val["province_dist"])?> / <?php echo showlocation($val["location_dist"]) ?><br />            
-            <em>Amount :</em> 
-			<?php 
-			if ($_SESSION["s_mem_id"]!="")
-			{
-				  echo number_format($val["price_agent"] * $val["unit"] , 2);
-			}
-			else 
-			{
-				  echo number_format($val["price"] * $val["unit"] , 2); 
-			}
-			?> 
-            <em>baht&nbsp;&nbsp;</em><em>By :</em> <?php echo showvehicle($val["vehicle_type"]) ?><br />            </td>
-          </tr>
-        <tr>
-          <td valign="top">&nbsp;</td>
-          <td valign="top"><strong style="font-size:22px">2.When</strong></td>
-          <td colspan="4" valign="top"><em>Arrival date :</em> <?php echo changeDateMonthShow($val["arrival_date"]) ?> <br />
-            <em>Arrival time :</em> <?php echo $val["arrival_hour"] ?>:<?php echo str_pad($val["arrival_minute"],2,"0",STR_PAD_LEFT); ?><br />
-           <?php if ($val["departure_date"]!=""){ ?>
-            <em>Departure date :</em> <?php echo changeDateMonthShow($val["departure_date"]) ?> <br />
-            <em>Departure time :</em> <?php echo $val["departure_hour"] ?>:<?php echo str_pad($val["departure_minute"],2,"0",STR_PAD_LEFT); ?>
-           <?php } ?>
-            </td>
-          </tr>
-        <tr>
-          <td valign="top">&nbsp;</td>
-          <td valign="top"><strong style="font-size:22px">3.Who</strong></td>
-          <td colspan="4" valign="top"><span class="b1"><em>Adults (12+) :</em></span>&nbsp;<?php echo $val["adults"] ?><br />
-            <span class="b1"><em>Children (3-11) :</em></span>&nbsp;<?php echo $val["children"] ?><br />
-            <span class="b1"><em>Infants (0-2) :</em></span>&nbsp;<?php echo $val["infants"] ?></td>
-          </tr>
-        <tr>
-          <td valign="top">&nbsp;</td>
-          <td valign="top">&nbsp;</td>
-          <td width="334" align="right"><a href="del_booking.php?num_route=<?php echo $index ?>" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image45','','images/bDelete2-r.png',1)"><img src="images/bDelete2.png" alt="andamantaxis" name="Image45" width="118" height="34" id="Image45" /></a></td>
-          <td width="38" colspan="3" align="right">&nbsp;</td>
-        </tr>
-        <tr>
-          <td valign="top">&nbsp;</td>
-          <td valign="top">&nbsp;</td>
-          <td align="right">&nbsp;</td>
-          <td colspan="3" align="right">&nbsp;</td>
-        </tr>
-        </table>
-      <br />
-    
-<table width="279" border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr>
-    <td width="279"><?php } ?>
-      <a href="booking.php" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image51','','images/bAddLeg-r.png',1)"><img src="images/bAddLeg.png" alt="Andamantaxis" name="Image51" width="117" height="33" id="Image51" /></a><a href="booking-detail.php" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image52','','images/bSubmit-r.png',1)">&nbsp;<img src="images/bSubmit.png" alt="Andamantaxis" name="Image52" width="117" height="33" id="Image52" /></a><a href="booking.php?num_route=<?php echo $index ?>"></a></td>
-    </tr>
-</table>
+
+	<div  style='margin:0 auto; width:600px;' >
+		<div class='panel panel-success'>
+			<div class='panel-heading'><h3>Book Your Transfer</h3></div>
+			<div class='panel-body'>
+				<ul class="list-group">
+				  <li class="list-group-item">
+					<h4 class="list-group-item-heading">Where</h4>
+					<p class="list-group-item-text">
+							<div class="input-group">  
+								<div class="input-group-addon" style='width:120px;'	>Origin</div>
+								<label class='form-control' style='width:400px;'><?php echo showprovince($val["province_src"])?>  / <?php echo showlocation($val["location_src"]) ?></label>
+							</div>
+							<div class='input-group'>
+								<span class="input-group-addon" style='width:120px;'>Distination</span>
+								<label class='form-control' style='width:400px;'  ><?php echo showprovince($val["province_dist"])?> / <?php echo showlocation($val["location_dist"]) ?></label>
+							</div>
+							<div class='input-group'>
+								<span class="input-group-addon" style='width:120px;'>Amount</span>
+								<label class='form-control' style='width:400px;'    ><? echo $amount ;?></label>
+							</div>
+							<div class='input-group'>
+								<span class="input-group-addon"  style='width:120px;'>Vehicle Type</span>
+								<label class='form-control' style='width:400px;'  ><?php echo showvehicle($val["vehicle_type"]) ?></label>
+							</div>
+					</p>
+				  </li>
+				<li class="list-group-item">
+					<h4 class="list-group-item-heading">When</h4>
+					<p class="list-group-item-text">
+						<div class='input-group'>
+							<span class="input-group-addon" style='width:120px;'>Arrival date</span>
+							<label class='form-control' style='width:400px;'    ><?php echo changeDateMonthShow($val["arrival_date"]) ?> </label>
+						</div>
+						<div class='input-group'>
+							<span class="input-group-addon" style='width:120px;'>Arrival time</span>
+							<label class='form-control' style='width:400px;'    ><?php echo $val["arrival_hour"] .":".  str_pad($val["arrival_minute"],2,"0",STR_PAD_LEFT); ?></label>
+						</div>
+						 <?php if ($val["transfer"] == "2"){ ?>
+						 <div class='input-group'>
+							<span class="input-group-addon" style='width:120px;'>Departure date</span>
+							<label class='form-control' style='width:400px;'    ><?php echo changeDateMonthShow($val["departure_date"]) ?> </label>
+						</div>
+						<div class='input-group'>
+							<span class="input-group-addon" style='width:120px;'>Departure time</span>
+							<label class='form-control' style='width:400px;'    ><?php echo $val["departure_hour"] .":".  str_pad($val["departure_minute"],2,"0",STR_PAD_LEFT); ?></label>
+						</div>
+						 
+						 <? } ?>
+					</p>
+				  </li>
+			  <li class="list-group-item">
+				<h4 class="list-group-item-heading">Who</h4>
+				<p class="list-group-item-text">
+					<div class='input-group'>
+						<span class="input-group-addon" style='width:120px;'>Adults (12+)</span>
+						<label class='form-control' style='width:400px;'    ><? echo $val["adults"]; ?></label>
+					</div>
+					<div class='input-group'>
+						<span class="input-group-addon" style='width:120px;'>Children (3-11)</span>
+						<label class='form-control' style='width:400px;'    ><? echo $val["children"] ?></label>
+					</div>
+					<div class='input-group'>
+						<span class="input-group-addon" style='width:120px;'>Infants (0-2) :</span>
+						<label class='form-control' style='width:400px;'    ><? echo $val["infants"];?></label>
+					</div>
+				</p>
+			  </li>
+			  <li class="list-group-item text-center" >
+				<a href='booking-detail.php' class='btn btn-success' >Submit</a>
+				<a href='del_booking.php?num_route=<?php echo $index ?>' class='btn btn-danger'>Cancel</a>
+			  </li>
+
+			</ul>
+			</div>
+		</div>
+	</div>
+	</div>
+      
+    <?
+	//close loop booking
+	//}
+	?>
     </form>	
-	
-	
 	<!-- InstanceEndEditable -->      <p>&nbsp;</p></td>
   </tr>
   <tr>
@@ -268,6 +285,7 @@ function MM_swapImage() { //v3.0
 <map name="Map2" id="Map2">
   <area shape="rect" coords="37,88,395,123" href="index.php" />
 </map>
+<script type='text/javascript' src='js/bootstrap.js' ></script>
 </body>
 <!-- InstanceEnd --></html>
 <?php ob_end_flush() ?>
