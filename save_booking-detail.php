@@ -110,7 +110,7 @@ function MM_swapImage() { //v3.0
 /////////////////////////////////reservation////////////////////////	
 //// 1. Recive data	
 				$reserv_date		=	trim($_POST["reserv_date"]);
-				$reserv_amount = $_POST["total"];
+				$reserv_amount = $_POST["total"]; 
 				$reserv_member		=	trim($_POST["reserv_member"]);
 				$reserv_payment		=	trim($_POST["reserv_payment"]);
 				$reserv_status		=	trim($_POST["reserv_status"]);///
