@@ -12,13 +12,6 @@ class mysql{
 		$pass= 'remotedb';
 		$database = 'andaman4_reserv';
 
-		/*
-		$host = "localhost";
-		$user = "andaman4_reserv";
-		$pass = "8FS4zbXl";
-		$database = "andaman4_reserv";
-		*/
-
 		@mysql_connect($host,$user,$pass) or exit(mysql_error());
 		mysql_select_db($database) or exit(mysql_error());
 		mysql_query("set names utf8");
@@ -47,8 +40,8 @@ class mysql{
 <?php
 
 	session_start();
-	$conn = new mysql;
-	$conn1 = new mysql;
-	$conn2 = new mysql;
+	//$conn = new mysql;
+	//$conn1 = new mysql;
+	//$conn2 = new mysql;
 	
 ?>
