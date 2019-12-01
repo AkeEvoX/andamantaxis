@@ -211,24 +211,34 @@ div.ch1 {
 			$_SESSION["s_route"] = array();
 			
 			//## payment with paypal ##
-			if ($reserv_payment == 2){
+			switch($reserv_payment)
+			{
+				case "2": //paypal
+					//## send mail  : booking complete ## 
+					SendMail($reserv_email,$reserv_id,$conn,$conn2,0);			
+					//## paypal ##	
 				
-				//## send mail  : booking complete ## 
-				SendMail($reserv_email,$reserv_id,$conn1,$conn2,0);			
-				//## paypal ##			
-			
-				
-				require('include/paypal.php'); 
-							
-				exit("<script>
-					document.getElementById('frmpaypal').submit();
-				</script>");
-			}else{
-				//#payment with Account
-				confirmpayment($reserv_id,$conn1);
-				
-				alertgo("Thank You for Reservation.","index.php");
+					require('include/paypal.php'); 
+								
+					exit("<script>
+						document.getElementById('frmpaypal').submit();
+					</script>");
+				break;
+				case "4": //omise
+					SendMail($reserv_email,$reserv_id,$conn,$conn2,0);		
+					$reserv_id = str_pad($reserv_id,5,"0",STR_PAD_LEFT);
+					header("Location:omise_payment.php?id=".$reserv_id."&price=".$reserv_amount."&_=".gettimeofday()['usec']);
+					exit;
 
+				break;
+				default : //pay with drive on arraival
+
+					confirmpayment($reserv_id,$conn);
+					alertgo("Thank You for Reservation.","index.php");
+
+				break;
+
+				
 			}
 			
 ?>	

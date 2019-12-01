@@ -103,7 +103,7 @@ function MM_swapImage() { //v3.0
 		
 		if($id==""){
 			
-		go('index.php');	
+		  go('index.php');	
 		
 		}
 		//## update confirm payment status reservation

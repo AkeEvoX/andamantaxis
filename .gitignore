@@ -1,6 +1,7 @@
 
 # ignore config 
 lib/config.php
+include/conect.php
 
 # ignore temp pdf file
 temp_pdf/*.*

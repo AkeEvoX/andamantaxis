@@ -6,18 +6,17 @@
 	define("OMISE_PUBLIC_KEY","pkey_test_5ht64xcxv6dcsjtis48");
 	define("OMISE_SECRET_KEY","skey_test_5ht64xcxvqy2yfxv6nd");
 	
-	//$omise = new omise_manager();
-	$amt=$_POST["price"];
+	$amt=$_POST["inputAmount"];
 	$cur = "thb";
 	$token=$_POST["omise_token"];
-	$orderid=$_POST["orderid"];
+	$orderid=$_POST["inputOrderID"];
 	$remoteAddr = $_SERVER['REMOTE_ADDR'] ;
-	echo "<p>amount=".$amt."</p>";
-	echo "<p>orderid=".$orderid."</p>";
+	//echo "<p>amount=".$amt."</p>";
+	//echo "<p>orderid=".$orderid."</p>";
 	//echo "card=".$token;
 	//$result = $omise->Charge($amt,$cur,$token);
 	try{
-	$result = OmiseCharge::create(array(
+		$result = OmiseCharge::create(array(
 			"amount" => $amt."00",
 			"currency" => $cur,
 			"description" => "Charge for order " . $orderid,
@@ -26,9 +25,11 @@
 		));
 	}
 	catch(OmiseException $ex){
-		echo "<p>Error code : ".$ex->getCode()."</p>";
-		echo "<p>Message :". $ex->getMessage()."</p>";
-		echo "<input type='button' onclick='window.history.back();' value='click back'/>";
+		//echo "<p>Error code : ".$ex->getCode()."</p>";
+		//echo "<p>Message :". $ex->getMessage()."</p>";
+		echo "<script>alert('Error!!, ".$ex->getMessage().".');";
+		echo "window.history.back(); ";
+		echo "</script>";
 		exit();
 	}
 	

@@ -8,10 +8,10 @@ class mysql{
 	function __construct(){
 		
 		
-		$host = 'localhost';
+		$host = 'andamantaxis.com';
 		$user='andaman4_remote';
 		$pass= 'kCcjcWOfw';
-		$database = 'andaman4_reserv';
+		$database = 'andaman4_dev';
 		
 		@mysql_connect($host,$user,$pass) or exit(mysql_error());
 		mysql_select_db($database) or exit(mysql_error());

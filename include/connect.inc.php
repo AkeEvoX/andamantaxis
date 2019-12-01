@@ -5,7 +5,7 @@
 	$port = "3306";
 
 	$username = "andaman4_reserv";
-	$password = "8FS4zbXl";
+	$password = "8FS4zbXl321";
 	$dbname = "andaman4_reserv";
 
 	$conn = new mysqli;

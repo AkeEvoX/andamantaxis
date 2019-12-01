@@ -400,8 +400,8 @@ $(document).ready(function(e) {
 	/* initial control */
 	
 	$(document).ready(function(){
-			controls.setPaymentType("paymentType");
-			controls.setPaymentPrice("total");
+		controls.setPaymentType("paymentType");
+		controls.setPaymentPrice("total");
 	});
 	
 	/* initial control */
