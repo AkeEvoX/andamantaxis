@@ -1,0 +1,11 @@
+2019-11-24 12:42:04 [DEBUG] mail remind id584,mail to:
+2019-11-24 12:42:10 [DEBUG] mail review id554,mail to:svargalok@gmail.com
+2019-11-24 12:42:13 [DEBUG] mail review id556,mail to:svargalok@gmail.com
+2019-11-24 12:47:01 [DEBUG] mail remind id=585,mail to=
+2019-11-24 12:47:01 [DEBUG] skip mail remind id=585 because email is empty.
+2019-11-24 12:47:01 [DEBUG] mail review id=557,mail to=svargalok@gmail.com
+2019-11-24 12:47:04 [DEBUG] mail review id=560,mail to=svargalok@gmail.com
+2019-11-24 13:49:17 [DEBUG] mail review id=561,mail to=svargalok@gmail.com
+2019-11-24 13:49:21 [DEBUG] mail review id=562,mail to=svargalok@gmail.com
+2019-11-24 13:49:24 [DEBUG] mail remind id=585,mail to=
+2019-11-24 13:49:24 [DEBUG] skip mail remind id=585 because email is empty.

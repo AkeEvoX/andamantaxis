@@ -1,0 +1,9 @@
+php_flag display_errors on
+
+RewriteEngine On
+
+RewriteRule ^tour/(.*)/(.*).php$ /package-url.php?url_province=$1&url=$2 [L]
+RewriteRule ^th/(.*)/(.*).php$ /package-thai.php?url_province=$1&url=$2 [L]
+RewriteRule ^transfer/(.*)/(.*).php$ /seotitle.php?url_province=$1&url=$2 [L]
+RewriteRule ^route/(.*)/(.*)/(.*).php$ /seoroute.php?tprice_id=$1&linklocation2=$2&linklocation1=$3 [L]
+ErrorDocument 404 /error404.php

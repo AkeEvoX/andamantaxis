@@ -1,0 +1,3 @@
+DirectoryIndex index.php
+RewriteEngine on
+RewriteRule ^(.*)/(.*).php$ /package-url.php?url_province=$1&url=$2
