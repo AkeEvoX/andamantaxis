@@ -17,13 +17,13 @@
         
     <div class="form-group">
         <label for="inputOrderID" >Order ID</label>
-        <span class="form-control"><? echo $_GET["id"] ;?></span>
-        <input type="hidden" name="inputOrderID" value="<? echo $_GET["id"] ;?>" />
+        <span class="form-control"><? echo $_GET["id"] ?: "&nbsp;" ;?></span>
+        <input type="hidden" name="inputOrderID" value="<?php echo $_GET["id"] ?: "" ;?>" />
     <div>
     <div class="form-group">
         <label for="inputAmount" >Amount</label>
-        <span class="form-control"><? echo $_GET["price"] ;?></span>
-        <input type="hidden" name="inputAmount" value="<? echo $_GET["price"] ;?>" />
+        <span class="form-control"><?php echo $_GET["price"] ?: "&nbsp;"; ?></span>
+        <input type="hidden" name="inputAmount" value="<?php echo $_GET["price"] ?: "" ;?>" />
     <div>
     <div class="form-group">
         <label for="inputHolder">Holder Name</label>
@@ -41,14 +41,16 @@
         </div>
     </div>
     <div class="form-inline">
-        <label for="inputHolder">CVV</label>
+        <label for="inputHolder">CVV</label><br/>
         <div class="form-group" >
-            <input type="text" class="form-control" data-omise="security_code" size="8" maxlength="8">
+            <input type="text" class="form-control" data-omise="security_code" size="8" placeholder="security code" maxlength="8">
         </div>
     </div>
-    <div class="form-group">
-        <input type="submit" class="btn btn-success" id="create_token" value="Confirmed">
-        <input type="input" class="btn btn-danger"  value="Cancel">
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-success" id="create_token" ><span class="glyphicon glyphicon-ok-circle"></span> Confirmed</button>
+            <button type="button" class="btn btn-danger"  id="cancel_payment" ><span class="glyphicon glyphicon-ban-circle"></span> Canceled</button>
+        </div>
     </div>
   <div id="token_errors"></div>
   <input type="hidden" name="omise_token">
@@ -99,6 +101,10 @@ $("#checkout").submit(function(){
     });
     
     return false;
+});
+
+$("#cancel_payment").click(function(){
+    window.history.back();
 });
 </script>
 </body>

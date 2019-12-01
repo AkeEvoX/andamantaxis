@@ -345,7 +345,8 @@ div.ch1 {
 							<span class="badge">Prices From</span>
 							Transfers in....
 						  </li>
-						  <?
+						  <?php
+              
 						  $sql = "select * from topdistinations";
 						  $conn->query($sql);
 							while ($row = $conn->fetchArray()){
