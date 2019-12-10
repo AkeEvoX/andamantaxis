@@ -95,7 +95,11 @@ function MM_swapImage() { //v3.0
   </tr>
   <tr>
     <td align="left" valign="top" bgcolor="#C6E2FA"><p>&nbsp;</p>
-    <!-- InstanceBeginEditable name="content" --><center> <font size="+6"> Pay Paypal Complete </font> </center>
+    <!-- InstanceBeginEditable name="content" -->
+    <center> <font size="+6"> Pay Paypal Complete </font>
+      </br>
+      <img src="img/loading_circle_3.gif" alt="loading" width="500px"/>
+    </center>
 	
 	<?php 
 	

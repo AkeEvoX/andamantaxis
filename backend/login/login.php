@@ -10,13 +10,14 @@
 <title>BackEnd</title>
 <!-- InstanceEndEditable -->
 <link rel="stylesheet" type="text/css" href="../css/style.css">
-<script src="../../plugin/jquery-ui/external/jquery/jquery.min.js"></script>
-<script src="../../plugin/jquery-ui/jquery-ui.min.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../jquery/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
 <link rel="stylesheet" type="text/css" href="../../plugin/jquery-ui/jquery-ui.min.css">
 <script src="../../plugin/jquery-ui/external/function.js"></script>
 <!-- InstanceBeginEditable name="head" -->
 <script type="text/javascript">
 $(document).ready(function(e) {
+
     $("#submitBtn").click(function(){
 		
 		$("#error").html("");
@@ -39,6 +40,7 @@ $(document).ready(function(e) {
 			return false;
 		}
 	});
+
 });
 </script>
 <!-- InstanceEndEditable -->
@@ -65,6 +67,7 @@ $(document).ready(function(e) {
 				elseif ($row["staff_status"]!=1)
 					$error = "This staff is disabled";
 				else{
+
 					setcookie("login_email",$row["staff_email"],0,"/");
 					setcookie("login_name",$row["staff_firstname"],0,"/");
 					setcookie("login_surname",$row["staff_lastname"],0,"/");
@@ -85,7 +88,7 @@ $(document).ready(function(e) {
             <input type="password" name="password" id="password" required>
              <span class="error" id="passwordError"></span>
             <div id="submitBtn">SUBMIT</div>
-            <span class="error" id="error"><?php echo $error ?></span>
+            <span class="error" id="error"><?php echo $error; ?></span>
         </div>        
        	</form>
         <!-- InstanceEndEditable -->

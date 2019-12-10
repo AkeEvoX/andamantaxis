@@ -95,7 +95,10 @@ function MM_swapImage() { //v3.0
   </tr>
   <tr>
     <td align="left" valign="top" bgcolor="#C6E2FA"><p>&nbsp;</p>
-    <!-- InstanceBeginEditable name="content" --><center> <font size="+6"> Pay Omise Completed </font> </center>
+    <!-- InstanceBeginEditable name="content" -->
+    <center> <font size="+6"> Pay Omise Completed </font> </br>
+    <img src="img/loading_circle_3.gif" alt="loading" width="500px"/>
+    </center>
 	
 	<?php 
 	
@@ -105,8 +108,10 @@ function MM_swapImage() { //v3.0
 			
 		  go('index.php');	
 		
-		}
-		//## update confirm payment status reservation
+    }
+    
+    //## update confirm payment status reservation
+    
 		$sql = "update reservation
 				set reserv_status = 2
 				where reserv_id = '$id'
@@ -116,7 +121,8 @@ function MM_swapImage() { //v3.0
 		//## send mail  : payment omise has complete ## 
 		SendMail("",$id,$conn,$conn2,2);
 		
-		header("refresh:5; url=index.php");
+    header("refresh:5; url=index.php");
+    
 	?>
 	
 	<!-- InstanceEndEditable -->      <p>&nbsp;</p></td>

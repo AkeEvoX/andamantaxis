@@ -1,12 +1,20 @@
 <?php
 
 
+	/*
 	$host = "127.0.0.1";
-	$port = "3306";
-
 	$username = "andaman4_reserv";
 	$password = "8FS4zbXl321";
 	$dbname = "andaman4_reserv";
+	*/
+	$port = "3306";
+
+	$host = 'andamantaxis.com';
+	$username='andaman4_remote';
+	$password= 'kCcjcWOfw';
+	$dbname = 'andaman4_dev';
+
+
 
 	$conn = new mysqli;
 	$conn->connect($host,$username,$password,$dbname,$port);
