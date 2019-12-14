@@ -23,20 +23,23 @@ class database {
 	}
 
 	function __destruct(){
-/*
-		try{
 
-			$this->result->free();
-		
+		try{
+			
+			if($this->result!=null){
+				$this->result->free();
+			}
+		    /*
 			if($this->conn!="")
 				$this->conn->close();
 
 			echo "<br/>terminate and disconnect class database ";
+			*/
 
 		}catch(Exception $e)
 		{
 			echo "Disconnect Error : " . $e->getMessage();
-		}*/
+		}
 	}
 
 	function connect(){

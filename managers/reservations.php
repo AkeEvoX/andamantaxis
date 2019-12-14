@@ -7,7 +7,7 @@ class ReservationManager{
 	protected $mysql;
 	protected $serviceName = "Reservation Manager";
 	
-		function __construct(){
+	function __construct(){
 
 		try{
 			$this->mysql = new database();
